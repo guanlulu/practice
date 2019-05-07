@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <style>
+    html,body {
+        width: 100%;
+        height: 100%;
+    }
+    .message-ball {
+      font-size: 20px;
+      /* line-height: 200px; */
+      text-align: center;
+    }
+    #box {
+        position: relative;
+        width: 100%;
+        height: 90%;
+        margin-top: 255px;
+        margin-left: 255px;
+    }
+    .circle {
+      transition-property: width, height, margin-left, margin-top;
+      transition-duration: 2s;
+      position: absolute;
+      transform: translateX(-50%) translateY(-50%);
+      border-radius: 50%;
+    }
+  </style>
+</head>
+
+<body>
+
+  <button onclick="go()">Click me</button>
+  <div id="box"></div>
+  <script>
+  let num = 1
+  function go() {
+    let cx = parseInt(Math.random() * 255)
+    let cy = parseInt(Math.random() * 255)
+    let radius = parseInt(Math.random() * 255)
+    console.log(cx, cy, radius)
+    showCircle(cx, cy, radius).then(div => {
+        console.log(div)
+      div.classList.add('message-ball');
+      div.style.lineHeight =  radius * 2 + 'px';
+      div.append("Hello, world!");
+    });
+  }
+
+// document.body.onmouseover = () => {
+//     let cx = parseInt(Math.random() * 255)
+//     let cy = parseInt(Math.random() * 255)
+//     let radius = parseInt(Math.random() * 255)
+//     console.log(cx, cy, radius)
+//     showCircle(cx, cy, radius).then(div => {
+//       div.classList.add('message-ball');
+//       div.append("Hello, world!");
+//     });
+//   }
+  function showCircle(cx, cy, radius) {
+    num++
+    let div = document.createElement('div');
+    div.style.width = 0;
+    div.style.height = 0;
+    div.style.left = cx + 'px';
+    div.style.top = cy + 'px';
+    div.style.backgroundColor = `rgb(${cx},${cy},${radius})`
+    // 不加这个 num1 类名 好像找不到正确的 div 
+    div.className = `circle num${num}`;
+    document.querySelector('#box').append(div);
+
+    return new Promise(resolve => {
+      setTimeout(() => {
+        div.style.width = radius * 2 + 'px';
+        div.style.height = radius * 2 + 'px';
+
+        div.addEventListener('transitionend', function handler() {
+          div.removeEventListener('transitionend', handler);
+          resolve(div);
+        });
+      }, 0);
+    })
+  }
+  </script>
+
+
+</body>
+</html>

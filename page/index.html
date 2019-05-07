@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        var data = [
+            {id: 1,label: 'fdsfs',checked: false},
+            {id: 2,label: 'cfdsgsd',checked: false},
+            {id: 3,label: 'cdsgsdgs',checked: false},
+            {id: 4,label: 'fsdgdfgdffdhdfgfdh',checked: false},
+            {id: 5,label: '广告计划计划',checked: false}
+        ]
+        var arr = [2,3,5]
+        arr.map(v => {
+            data.map(k => {
+                if(v == k.id) k.checked = true
+                // k.checked = v == k.id ? true : false
+            })
+        })
+        console.log(data)
+    </script>
+</body>
+</html>

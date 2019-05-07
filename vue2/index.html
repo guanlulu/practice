@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div id="app">
+        {{message}}
+        <bbb></bbb>
+        <input type="text" v-focus>
+        <div id="hook-arguments-example" v-demo:foo.a.b="message"></div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script>
+Vue.component('bbb',{
+    template: `
+        <div>这是一个子组件</div>
+        <div>{{msg}}</div>
+    `,
+    data() {
+        return {
+            msg: '一个子组件'
+        }
+    }
+})
+
+// 注册一个全局自定义指令 `v-focus`
+Vue.directive('focus',{
+    // 当被绑定的元素插入到 DOM 中时……
+    inserted: function(el) {
+        el.focus()
+    }
+})
+
+Vue.directive('demo', {
+  bind: function (el, binding, vnode) {
+    var s = JSON.stringify
+    el.innerHTML =
+      'name: '       + s(binding.name) + '<br>' +
+      'value: '      + s(binding.value) + '<br>' +
+      'expression: ' + s(binding.expression) + '<br>' +
+      'argument: '   + s(binding.arg) + '<br>' +
+      'modifiers: '  + s(binding.modifiers) + '<br>' +
+      'vnode keys: ' + Object.keys(vnode).join(', ')
+  }
+})
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        message: 'Hello Vue!'
+    },
+    // 局部自定义指令
+    // directives: {
+    //     focus: {
+    //         // 指令的定义
+    //         inserted: function(el) {
+    //             el.focus()
+    //         }
+    //     }
+    // }
+})
+
+
+</script>
+<script>
+// 一个指令定义对象可以提供如下几个钩子函数 (均为可选)：
+// bind
+// 只调用一次，指令第一次绑定到元素时调用。可进行一次性的初始化设置
+// insert
+// 被绑定元素插入父节点时调用（仅保证父节点存在，但不一定已被插入文档中）
+// update
+// vNode 更新时调用
+// componentUpdate
+// 指令所在组件的 VNode 及其子 VNode 全部更新之后调用
+// unbind
+// 只调用一次，指令与元素解绑是调用 
+
+// 钩子函数的参数
+// el 
+// 指令绑定元素，可以用来直接操作DOM
+// binding  对象
+    // name 指令名，不包括 v- 前缀
+    // value 指令的绑定值
+    // oldValue   指令绑定的前一个值，仅在 update 和 componentUpdate 钩子中可用
+    // expression 字符串形式的指令表达式
+    // arg 传给指令的参数
+    // modifiers 一个包含修饰符的对象 v-my-directive.foo.bar , 修饰符对象是 {foo: true,bar: true}
+// vnode 
+// Vue 编译生成的虚拟节点
+// oldvnode
+// 上一个虚拟节点，仅在 update 和 componentUpdated 钩子中可用
+</script>
+</html>

@@ -1,0 +1,37 @@
+<html>
+    <head>
+    <meta charset="UTF-8">
+    <title>Vue.js密码强度显示</title>
+    <link rel="stylesheet" href="css/normalize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    </head>
+    
+    <body>
+    
+    <div id="app">
+        <h2>html5密码强度显示</h2> 
+        <div class="input_container">
+            <input type="password" placeholder="输入密码"> 
+            <span class="password_length valid_password_length show_password_length">
+                9
+            </span>
+        </div> 
+        <div class="lnu_container">
+            <p class="lovercase_valid">小写字母</p> 
+            <p class="number_valid">数字</p> 
+            <p class="uppercase_valid">大写字母</p>
+        </div> 
+        <div class="valid_password_container show_valid_password_container">
+            <svg width="100%" height="100%" viewBox="0 0 140 100">
+                <path d="M10,50 l25,40 l95,-70" class="tick checked"></path>
+            </svg>
+        </div>
+    </div>
+    
+    <script src="js/vue.min.js"></script> 
+    <script src="js/index.js"></script>
+    
+    
+    
+    </body>
+    </html>

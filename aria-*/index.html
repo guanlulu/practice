@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    html,body {
+        width: 100%;
+        height: 100%;
+    }
+</style>
+<body>
+    <!-- 2015年5月21日，W3C HTML工作组（HTML Working Group）发布了在HTML中使用ARIA（Notes on Using ARIA in HTML）的标准工作草案 -->
+    <!-- HTML5针对html tag增加的属性 -->
+    <!-- 一般是为不方便的人士提供的功能，比如屏幕阅读器 -->
+
+    <!-- role的作用是描述一个非标准的tag的实际作用。比如用div做button，那么设置div 的 role="button"，辅助工具就可以认出这实际上是个button -->
+    <!-- aria的意思是Accessible Rich Internet Application，aria-*的作用就是描述这个tag在可视化的情境中的具体信息 -->
+    <div role="checkbox" aria-checked="checked">checked</div>
+
+    <!-- aria-label -->
+    <!-- 正常情况下，会在表单里给input组件指定对应的label，当用户tab到输入框时，读屏软件就会读出相应label里的文本 -->
+    <!-- 当没有给输入框设计对应的label文本的位置时，aria-label属性为组件指定内置的文本标签。它不在视觉上呈现。 -->
+    <input type="text" aria-label="用户名"/>
+    <!-- aria-label只有加在可被tab到的元素上，读屏才会读出其中的内容。以下情况，也是可以读出的 -->
+    <span tabindex="0" aria-label="标签提示内容">可被tab的span标签</span>
+</body>
+</html>

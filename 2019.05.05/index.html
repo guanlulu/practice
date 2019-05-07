@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        * {
+            padding: 0;
+            margin: 0;
+        }
+        li {
+            list-style: none;
+        }
+        .maillist_newmail_wrap {
+            position: relative;
+            cursor: pointer;
+            color: #f98600;
+            background-color: #fff1e8;
+            height: 32px;
+            user-select: none;
+            opacity: 0;
+            transition: all 2s linear;
+        }
+        .maillist_newmail_txt_wrap {
+            text-align: center;
+            line-height: 32px;
+            height: 100%;
+        }
+        .maillist_newmail_wrap span {
+            position: absolute;
+            right: 5px;
+            top: 7px;
+        }
+        .introduce li {
+            border-bottom: 1px solid #000;
+        }
+        .visible {
+            display: block;
+        }
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <div class="maillist_newmail_wrap hidden">
+            <div class="maillist_newmail_txt_wrap">收到n条消息</div>
+            <span class="maillist_notify_close">忽略</span>
+        </div>
+        <ul class="introduce">
+            <Li>3.是大法官好电饭锅地方法规和鬼地方个和你</Li>
+            <Li>2.是豆腐干豆腐花而电饭煲</Li>
+            <Li>1.地方规划局发的啥地方不能</Li>
+        </ul>
+    </div>
+    <script>
+        var maillist_newmail_wrap_div = document.querySelector('.maillist_newmail_wrap')
+        var maillist_newmail_txt_wrap = document.querySelector('.maillist_newmail_txt_wrap')
+        var maillist_notify_close = document.querySelector('.maillist_notify_close')
+        var number = 0
+        var timer = setInterval(() => {
+            if(maillist_newmail_wrap_div.classList.contains('visible')) {
+                ++number
+            }else {
+                maillist_newmail_wrap_div.classList.remove('hidden')
+                maillist_newmail_wrap_div.classList.add('visible')
+                setTimeout(()=> {
+                    maillist_newmail_wrap_div.style.opacity = 0.8
+                })
+                number = 1
+            }
+            maillist_newmail_txt_wrap.innerHTML = `收到${number}条消息`
+           
+        },3000)
+
+        maillist_notify_close.onclick = function () {
+            maillist_newmail_wrap_div.style.opacity = 0
+            var timeout = setTimeout(()=>{
+                maillist_newmail_wrap_div.classList.remove('visible')
+                maillist_newmail_wrap_div.classList.add('hidden')
+                number = 0
+                clearInterval(timer)
+                timer = null
+                clearTimeout(timeout)
+            }, 2000)
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        div#box {
+            width: 360px;
+            height: 640px;
+            border: 1px solid #ccc;
+            position: relative;
+        }
+        #box>div {
+            width: 360px;
+            height: 200px;
+            position: absolute;
+            left: 0;
+            bottom: 0;
+        }
+        ul {
+            height: 150px;
+            background-color: #ccc;
+            margin: 0;
+            padding: 0;
+            overflow-y: scroll;
+        }
+        li {
+            list-style: none;
+            height: 50px;
+            line-height: 50px;
+            text-align: center;
+            font-size: 20px;
+        }
+        li.active {
+            background-color: orange;
+            color: #fff;
+        }
+        ul:before {
+            content: '';
+            position: absolute;
+            width: 360px;
+            height: 48px;
+            left: 0;
+            top: 50px;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
+        }
+        #btn {
+            height: 50px;
+            display: flex;
+            justify-content: space-between;
+        }
+        #btn>div {
+            width: 50%;
+            line-height: 50px;
+            text-align: center;
+            background-color: #aaa;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div>
+            <ul>
+                <li></li>
+                <li data-value="0" class="active">0000000</li>
+                <li data-value="1">1111111</li>
+                <li data-value="2">2222222</li>
+                <li data-value="3">3333333</li>
+                <li data-value="4">4444444</li>
+                <li data-value="5">5555555</li>
+                <li data-value="6">6666666</li>
+                <li data-value="7">7777777</li>
+                <li data-value="8">8888888</li>
+                <li data-value="9">9999999</li>
+                <li></li>
+            </ul>
+            <div id="btn">
+                <div id="cancle">取消</div>
+                <div id="confirm">确认</div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    // console.log($('ul>li:nth-of-type(7)'))
+    // console.log($('ul>li'))
+    $('ul').on('scroll',function(e) {
+        // var $scrollTop = $(this).scrollTop()
+        // console.log($scrollTop)
+        $('ul>li').each(function() {
+            if($(this).position().top > 0 && $(this).position().top < 50) {
+                $('ul>li').each(function() {
+                    $(this).removeClass('active')
+                });
+                var value = Number($(this).attr('data-value')) - 1
+                $('ul').scrollTop(value * 50)
+                $(this).addClass('active')
+            }
+        });
+        // var h = $('ul>li:nth-of-type(7)').offset().top
+        // var h = $('ul>li:nth-of-type(7)').position().top
+        
+        // console.log(h)
+    })
+</script>
+</html>

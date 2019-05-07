@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Playfair Display', serif; 
+            margin: 0;
+            text-align: center
+        }
+        h1 {
+            font-weight: normal;
+            color: #6A5953
+        }
+        kbd {
+            font-size: 0.9em;
+            display:inline-block;
+            line-height:1.1;
+        }
+        .box {
+            width: 50%; 
+            margin: 0 auto 40px; 
+            position: relative;
+        }
+        div, h2, img {
+            -webkit-transition: .5s ease-in-out;
+            -moz-transition: .5s ease-in-out;
+            -o-transition: .5s ease-in-out;
+            transition: .5s ease-in-out;
+        }
+        h2 {
+            color: #E39F81;
+            text-shadow: 1px 1px 0 #FFE3BD;
+        }
+        h2:hover {
+            text-shadow: 1px 1px 0 #FFE3BD, 2px 2px 0 #FFE3BD, 3px 3px 0 #FFE3BD, 4px 4px 0 #FFE3BD, 5px 5px 0 #FFE3BD;
+        }
+        .one, .two, .three {
+            border: 5px solid transparent;
+            width: 200px; 
+            height: 100px;
+            margin: 0 auto;
+            padding: 10px;
+        }
+        .one {
+            background-color: #B0CBC4;
+        }
+        .one:hover {
+            border: 5px solid #B0CBC4;
+            background-color: #F2EBD8;
+            border-top-left-radius: 100% 20px;
+            border-bottom-right-radius: 100% 20px;
+        }
+        .two {
+            background-color: #9F908F;
+        }
+        .two:hover {
+            border: 5px inset #9F908F;
+            background-color: #E0CABB;
+        }
+        .three {
+            background-color: #FBE2A9;
+            border: 5px solid #FFD18F;
+            outline: 5px solid transparent;
+        }
+        .three:hover {
+            outline: 5px solid #9E8463;
+            outline-offset: 5px;
+        }
+        .four {
+            width: 200px;
+            height: 100px;
+            background-color: #95A1B1;
+            margin: 0 auto;
+        }
+        .four:hover {
+            width: 250px;
+            height: 80px;
+            box-shadow: 0 15px 15px -10px rgba(0,0,0, .5);
+        }
+        .five {
+            width: 100px;
+            height: 100px;
+            background-color: #E0CABB;
+            margin: 0 auto;
+            position: relative;
+            left: 50px;
+        }
+        .five:hover {
+            left: -50px;
+        }
+        img {
+            width: 100%; 
+            display: block;
+        }
+        img:hover {
+            opacity: 0.5;
+        }
+        .six {
+            width: 200px;
+            height: 100px;
+            margin: 0 auto;
+            box-shadow: 
+                0 2px 4px rgba(0,0,0, .2),
+                0 -2px 4px rgba(0,0,0, .2);
+            background: url("https://html5book.ru/wp-content/uploads/2015/01/border-flower.png");
+            background-repeat: no-repeat;
+            background-position: bottom center;
+        }
+        .six:hover {
+            background-position: top center;
+        }
+        .seven {
+            width: 300px;
+            height: 100px;
+            margin: 0 auto;
+            background-color: white;
+            background-image: -webkit-radial-gradient(#9ed8d3 2px, rgba(255,0,0,0) 3px);
+            background-image: -o-radial-gradient(#9ed8d3 2px, rgba(255,0,0,0) 3px);
+            background-image: radial-gradient(#9ed8d3 2px, transparent 3px);
+            background-size: 10px 10px;
+        }
+        .seven:hover {
+            background-size: 20px 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>CSS3 Transition examples (on <kbd>:hover</kbd>)</h1>
+    <div class="wrap">
+        <div class="box">
+            <h2>Text-shadow</h2>
+        </div>
+        <div class="box">
+            <div class="one">
+                <kbd>border-color, border-radius, background-color</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <div class="two">
+                <kbd>border-style, background-color</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <div class="three">
+                <kbd>outline-color, outline-offset</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <div class="four">
+                <kbd>width, height, box-shadow</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <div class="five">
+                <kbd>position</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <kbd style="display:block;position:absolute; top: 10px;left:calc(50% - 23px);z-index:5;">opacity</kbd>
+            <img src="https://html5book.ru/wp-content/uploads/2016/01/css3-filters.jpg">
+        </div>
+        <div class="box">
+            <div class="six">
+                <kbd>background-position</kbd>
+            </div>
+        </div>
+        <div class="box">
+            <div class="seven">
+                <kbd>background-size</kbd>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

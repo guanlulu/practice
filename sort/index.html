@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    // function pySegSort(arr,empty) {
+    //     if(!String.prototype.localeCompare) return null;
+
+    //     var letters = "*abcdefghjklmnopqrstwxyz".split('');
+    //     var zh = "阿八嚓哒妸发旮哈讥咔垃痳拏噢妑七呥扨它穵夕丫帀".split('');
+
+    //     var segs = [];
+    //     var curr;
+    //     $.each(letters, function(i){
+    //         curr = {letter: this, data:[]};
+    //         $.each(arr, function() {
+    //             if((!zh[i-1] || zh[i-1].localeCompare(this) <= 0) && this.localeCompare(zh[i]) == -1) {
+    //                 curr.data.push(this);
+    //             }
+    //         })
+    //         if(empty || curr.data.length) {
+    //             segs.push(curr);
+    //             curr.data.sort(function(a,b) {
+    //                 return a.localeCompare(b)
+    //             })
+    //         }
+    //     });
+    //     return segs;
+    // }
+
+    function pySegSort(arr,empty) {
+    if(!String.prototype.localeCompare)
+        return null;
+
+    var letters = "*abcdefghjklmnopqrstwxyz".split('');
+    var zh = "阿八嚓哒妸发旮哈讥咔垃痳拏噢妑七呥扨它穵夕丫帀".split('')
+    // var zh = "安保处的风格很健康李美娜欧派确认书台湾小燕子".split('')
+
+    var segs = [];
+    var curr;
+    letters.map(function(i,i_index) {
+        curr = {letter: i, data:[]}
+        arr.map(function(k) {
+            if((!zh[i_index-1] || zh[i_index-1].localeCompare(k) <= 0) && k.localeCompare(zh[i_index]) == -1 || k.startsWith(i)) {
+                curr.data.push(k)
+            }
+        })
+        if(empty || curr.data.length) {
+            segs.push(curr);
+            curr.data.sort(function(a,b){
+                // return a.localeCompare(b)
+                return a.localeCompare(b,'zh-Hans-CN', {sensitivity: 'accent'})
+            })
+        }
+
+    })
+    return segs
+    
+}
+    
+    // var res = pySegSort(['白鸽', '麻雀','黑','大象', '狗', '猫','妈妈','马', "鸡",'瘦','胖'])
+    var res = pySegSort(['除了导出外都能查看的','菠萝饮料可口可乐集团','丝塔芙','管理技能组工作的','祝天祝地管理员','丝丝入扣','白鸽','1213124','baise','choice','user'])
+    console.log(res)
+</script>
+</html>

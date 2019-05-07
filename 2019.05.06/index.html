@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        #dv {
+            width: 300px;
+            height: 200px;
+            position: absolute;
+            left: 300px;
+            top: 100px;
+        }
+        .strengthLv {
+            height: 6px;
+            width: 120px;
+            border: 1px solid #ccc;
+            /* padding: 2px; */
+        }
+        #box {
+            height: 6px;
+            width: 0px;
+            transition: width .5s ease-in;
+            
+        }
+        .strengthLv1 #box {
+            background: red;
+        }
+      
+        .strengthLv2 #box {
+            background: orange;
+        }
+      
+        .strengthLv3 #box {
+            background: green;
+        }
+      </style>
+</head>
+<body>
+    <div id="dv">
+        <label for="pwd">密码</label>
+        <input type="text" id="pwd" maxlength="16">
+        <div>
+          <em>密码强度：</em>
+          <em id="strength"></em>
+          <div id="strengthLevel" class="strengthLv">
+              <div id="box"></div>
+          </div>
+        </div>
+    </div>
+</body>
+<script>
+    function getLvl(txt) {
+        //默认级别是0
+        var lvl = 0;
+        //判断这个字符串中有没有数字
+        if (/[0-9]/.test(txt)) {
+            lvl++;
+        }
+        //判断字符串中有没有字母
+        if (/[a-zA-Z]/.test(txt)) {
+            lvl++;
+        }
+        //判断字符串中有没有特殊符号
+        if (/[^0-9a-zA-Z_]/.test(txt)) {
+            lvl++;
+        }
+        return lvl;
+    }
+    document.querySelector('#pwd').onkeyup = function () {
+        document.querySelector('#box').className = `strengthLv${getLvl(this.value)}`
+        getLvl(this.value) == 1 && (document.querySelector('#box').style.width = 40 + 'px')
+        getLvl(this.value) == 2 && (document.querySelector('#box').style.width = 80 + 'px')
+        getLvl(this.value) == 3 && (document.querySelector('#box').style.width = 120 + 'px')
+    }
+    //strengthLv0 代表为达到校验规则时的样式
+    //strengthLv1 代表密码强度弱时的样式
+    //strengthLv2 代表密码强度中等时的样式
+    //strengthLv3 代表密码强度强时的样式
+</script>
+</html>

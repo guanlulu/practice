@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+    *{
+        margin:0px;
+        padding:0px;
+        border:0px;
+    }
+    #main {
+        width:960px;
+        margin:0 auto;
+        border:#000 1px solid;
+    }
+    #login_parent {
+        width:100%;
+        height:1000px;
+        left:0px;
+        top:0px;
+        position:fixed;
+        background-color:#666;
+    }
+    #login_panel {
+        width: 400px;
+        height: 400px;
+        background: #0C0;
+        position: fixed;
+        vertical-align: middle;
+        text-align: center;
+        line-height: 400px;
+        font-size: 36px;
+    }
+</style>
+<body>
+    <div id="main">
+        <div id="login_parent">
+            <div id="login_panel" onmousedown="mouseDown()" onmouseup="mouseUp()">可拖动的表</div>
+        </div>
+    </div>
+</body>
+<script>
+//以下属性先不用管，等我们在下面定义方法的时候，需要用到什么属性，在来定义全局变量（属性）就可以了
+var startX;
+var startY;
+var moveSwitch = false;
+var currentLeft;
+var currentTop;
+var loginTag = document.getElementById("login_panel");
+
+
+document.onmousemove = function(e){　　　//定义一个方法，用来捕捉鼠标的坐标位置
+    if(moveSwitch){　　　　　　　　　//类似于if(true);　　　　　　　　　　　　　　　
+        var x = e.clientX;　　　　　　　　//e.clientX是一个触摸事件，即是鼠标点击时的X轴上的坐标
+        var y = e.clientY;　　　　　　　　//e.clientY是一个触摸事件，即是鼠标点击时的Y轴上的坐标
+        var distanceX = x-startX;　　　　//X轴上获得移动的实际距离
+        var distanceY = y-startY;　　　　　//Y轴上获得移动的实际距离
+        loginTag.style.left = (distanceX+currentLeft)+"px";　　//currentLeft下面的方法会有解释，需要注意最后要添加PX单位，如果给left赋值会破坏文档流，不加单位就会无效
+        loginTag.style.top = (distanceY+currentTop)+"px";　　//
+    }
+}
+
+function mouseDown(e){　　　　//鼠标按下事件
+    e = e?e:window.event;　　　　//因为兼容问题，event可能在隐藏参数中，如果隐藏参数没有event事件，则可以使用全局的事件window.event（大家记住写法就可以了）
+    moveSwitch = true;
+    startX = e.clientX;
+    startY = e.clientY;
+    currentLeft = loginTag.offsetLeft;　　//通过对象获取对象的坐标
+    currentTop = loginTag.offsetTop;
+}
+function mouseUp(){
+    moveSwitch = false;
+}
+</script>
+</html>

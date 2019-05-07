@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <button id="btn">错误演示</button>
+    <button id="btn1">cors 请求</button>
+    <button id="btn2">jsonp</button>
+    <button id="btn3">ajax jsonp</button>
+</body>
+<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $('#btn').on('click',function() {
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:4000/err",
+            success: function(data) {
+                console.log(data)
+            }
+        })
+
+    })
+
+    $('#btn1').on('click',function() {
+
+        /* 1. 非标准头 会有预请求 产生跨域*/
+        /* cors 解决  后端添加 Access-Control-Allow-Headers*/
+
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:4000/getInfo",
+            headers: {"my-header":"cors"},
+            success: function(data) {
+                console.log(data)
+            }
+        })
+
+    })
+
+    $('#btn2').on('click',function() {
+
+        /* 2. jsonp 解决 */
+        /* 利用 script src 不受同源策略影响 */
+        /* 返回结果是个函数调用 */
+
+        function getJsonP() {
+            var script = document.createElement('script');
+            script.src = 'http://localhost:4000/jsonp?type=json&callback=onBack';
+            document.head.appendChild(script);
+        }
+
+        function onBack(res) {
+            console.log('JSONP CALLBACK:  ', JSON.stringify(res))
+        }
+
+        window.onBack = onBack
+
+        getJsonP()
+
+    })
+
+    $('#btn3').on('click',function() {
+
+        /* 2. 还是jsonp 解决 */
+        /* 使用 $.ajax dataType: 'jsonp' */
+        /* jquery,zepto这些js第三方库，其提供的ajax 方法都有对jsonp请求进行封装 */
+
+        $.ajax({
+            url: 'http://localhost:4000/jsonp',
+            type: 'get',
+            dataType: 'jsonp',  // 请求方式为jsonp
+            jsonpCallback: "onBack",    // 自定义回调函数名
+            data: {
+                type: 'json'
+            }
+        })
+
+        function onBack(res) {
+            console.log('JSONP CALLBACK:  ', JSON.stringify(res))
+        }
+
+         window.onBack = onBack
+
+    })
+</script>
+</html>

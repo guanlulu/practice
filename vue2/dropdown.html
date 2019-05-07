@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body {
+            width: 100%; 
+            height: 100%;
+        }
+        .relative_div {
+            position: relative;
+            width: 150px;
+            display: inline-block;
+        }
+        .parent_box {
+            background: green;
+        }
+        ul {
+            width: 100px;
+            position: absolute;
+            top: 40px;
+            left: 10px;
+        }
+        li {
+            height: 34px;
+            line-height: 34px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app">
+        <input type="text" v-model="inputs">
+        <br>
+        <div v-demo="flag" class="relative_div">
+            <div class="parent_box" @click="flag = !flag">点击出现下拉框</div>
+            <ul v-show="flag">
+                <li v-for="item in arr" @click="li_click(item)">{{item}}</li>
+            </ul>
+        </div>
+        <div v-demo="flag2" class="relative_div">
+            <div class="parent_box" @click="flag = !flag">点击出现下拉框</div>
+            <ul v-show="flag">
+                <li v-for="item in arr2" @click="li_click(item)">{{item}}</li>
+            </ul>
+        </div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script>
+
+Vue.directive('demo',{
+    bind: function(el,binding,vnode) {
+        el.handler = function() {
+            console.log('1111')
+            vnode.context[binding.expression] = false
+        }
+        el.stopProp = function(event) {
+            console.log('2222')
+            event.stopPropagation()
+        }
+        el.addEventListener('click',el.stopProp)
+        document.body.addEventListener('click',el.handler)
+    },
+    unbind: function(el,binding) {
+        el.removeEventListen('click',el.stopProp)
+        document.body.removeEventListen('click',el.handler)
+    }
+})
+
+var app = new Vue({
+    el: '#app',
+    data: {
+        flag: false,
+        flag2: false,
+        inputs: '',
+        arr: [
+            '选项1',
+            '选项2',
+            '选项3',
+            '选项4',
+            '选项5'
+        ],
+        arr2: [
+            '选项1',
+            '选项2',
+            '选项3',
+            '选项4',
+            '选项5'
+        ]
+    },
+    methods: {
+        li_click(item) {
+            this.inputs = item
+            this.flag = false
+        }
+    }
+})
+
+
+</script>
+</html>
