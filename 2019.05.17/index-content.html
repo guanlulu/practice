@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container {
+        width: 380px;
+        height: 380px;
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        grid-template-rows: 100px 100px 100px;
+        /* start | end | center | stretch | space-around | space-between | space-evenly */
+        /* space-around - 每个项目两侧的间隔相等。所以，项目之间的间隔比项目与容器边框的间隔大一倍 */
+        /* space-between - 项目与项目的间隔相等，项目与容器边框之间没有间隔 */
+        /* space-evenly - 项目与项目的间隔相等，项目与容器边框之间也是同样长度的间隔。 */
+        /* justify-content: space-evenly; */
+        /* 简写 */
+        /* place-content: <align-content> <justify-content> */
+        place-content: space-around space-evenly;
+    }
+    .item {
+        text-align: center;
+        font-size: 2em;
+    }
+    .item1 {
+        background: red;
+    }
+    .item2 {
+        background: orange;
+    }
+    .item3 {
+        background: green;
+    }
+    .item4 {
+        background: rgb(62, 105, 199);
+    }
+    .item5 {
+        background: blueviolet;
+    }
+    .item6 {
+        background: peru;
+    }
+    .item7 {
+        background: rgb(10, 105, 85);
+    }
+    .item8 {
+        background: papayawhip;
+    }
+    .item9 {
+        background: powderblue;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item item6">6</div>
+        <div class="item item7">7</div>
+        <div class="item item8">8</div>
+        <div class="item item9">9</div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container {
+        width: 380px;
+        height: 380px;
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        grid-template-rows: 100px 100px 100px;
+        /* 有时候，一些项目的指定位置，在现有网格的外部。比如网格只有3列，但是某一个项目指定在第5行 */
+        /* 浏览器会自动生成多余的网格，以便放置项目 */
+        /* grid-auto-columns属性和grid-auto-rows属性用来设置，浏览器自动创建的多余网格的列宽和行高 */
+        /* 多余网格的列宽和行高 */
+        grid-auto-rows: 60px;
+    }
+    .item {
+        text-align: center;
+        font-size: 2em;
+    }
+    .item1 {
+        background: red;
+    }
+    .item2 {
+        background: orange;
+    }
+    .item3 {
+        background: green;
+    }
+    .item4 {
+        background: rgb(62, 105, 199);
+    }
+    .item5 {
+        background: blueviolet;
+    }
+    .item6 {
+        background: peru;
+    }
+    .item7 {
+        background: rgb(10, 105, 85);
+    }
+    .item8 {
+        background: papayawhip;
+        grid-column-start: 2;
+        grid-row-start: 4;
+    }
+    .item9 {
+        background: powderblue;
+        grid-column-start: 3;
+        grid-row-start: 5;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item item6">6</div>
+        <div class="item item7">7</div>
+        <div class="item item8">8</div>
+        <div class="item item9">9</div>
+    </div>
+</body>
+</html>

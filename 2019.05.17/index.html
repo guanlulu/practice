@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container {
+        width: 300px;
+        height: 300px;
+        display: grid;
+        /* 1 */
+        grid-template-columns: 100px 100px 100px;
+        grid-template-rows: 100px 100px 100px;
+        /* 2 */
+        /* repeat() 函数 */
+        /* grid-template-columns: repeat(3, 33.33%);
+        grid-template-rows: repeat(3, 33.33%); */
+        /* 重复某种模式 */
+        /* 第一列和第四列的宽度为100px，第二列和第五列为20px，第三列和第六列为80px */
+        /* grid-template-columns: repeat(2, 100px 20px 80px); */
+        /* 3 */
+        /* minmax(100px, 1fr)表示列宽不小于100px，不大于1fr */
+        /* grid-template-columns: 1fr 1fr minmax(100px, 1fr); */
+        /* 4 */
+        /* auto关键字表示由浏览器自己决定长度 */
+        /* grid-template-columns: 100px auto 100px; */
+        /* 5 */
+        /* 容纳尽可能多的单元格 */
+        /* grid-template-columns: repeat(auto-fill, 100px); */
+        /* 6 */
+        /* 如果两列的宽度分别为1fr和2fr，就表示后者是前者的两倍 */
+        /* grid-template-columns: 1fr 1fr; */
+        /* fr可以与绝对长度的单位结合使用，这时会非常方便 */
+        /* grid-template-columns: 150px 1fr 2fr; */
+        /* 7 */
+        /* 使用方括号，指定每一根网格线的名字，方便以后的引用 */
+        /* 网格布局允许同一根线有多个名字，比如[fifth-line row-5] */
+        /* 怎么引用___________________??? */
+        /* grid-template-columns: [c1] 100px [c2] 100px [c3] auto [c4];
+        grid-template-rows: [r1] 100px [r2] 100px [r3] auto [r4]; */
+        /* 布局 */
+        /*  grid-template-columns: 70% 30%; */
+        /*  grid-template-columns: repeat(12,1fr); */
+    }
+    .item {
+        text-align: center;
+        line-height: 100px;
+    }
+    .item1 {
+        background: red;
+    }
+    .item2 {
+        background: orange;
+    }
+    .item3 {
+        background: green;
+    }
+    .item4 {
+        background: rgb(62, 105, 199);
+    }
+    .item5 {
+        background: blueviolet;
+    }
+    .item6 {
+        background: peru;
+    }
+    .item7 {
+        background: rgb(10, 105, 85);
+    }
+    .item8 {
+        background: papayawhip;
+    }
+    .item9 {
+        background: powderblue;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item item6">6</div>
+        <div class="item item7">7</div>
+        <div class="item item8">8</div>
+        <div class="item item9">9</div>
+    </div>
+</body>
+</html>

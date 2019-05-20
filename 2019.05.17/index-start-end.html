@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    .container {
+        display: grid;
+        grid-template-columns: 100px 100px 100px;
+        grid-template-rows: 100px 100px 100px;
+        grid-auto-rows: 100px;
+        /* grid-auto-flow: column dense; */
+    }
+    .item {
+        text-align: center;
+        font-size: 2em;
+    }
+    .item1 {
+        background: red;
+        /* 这两句是相同的效果 */
+        /* grid-column-start: span 2; */
+        grid-column-end: span 2;
+        /* span 关键字 */
+        /* 左右边框（上下边框）之间跨越多少个网格 */
+        /*  grid-column-start: span 2; */
+    }
+    .item2 {
+        background: orange;
+        /* grid-area: e; */
+        /* 放置在哪个区域 */
+        /* 与  grid-template-areas 一起使用*/
+    }
+    .item3 {
+        background: green;
+    }
+    .item4 {
+        background: rgb(62, 105, 199);
+    }
+    .item5 {
+        background: blueviolet;
+    }
+    .item6 {
+        background: peru;
+    }
+    .item7 {
+        background: rgb(10, 105, 85);
+    }
+    .item8 {
+        background: papayawhip;
+    }
+    .item9 {
+        background: powderblue;
+    }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="item item1">1</div>
+        <div class="item item2">2</div>
+        <div class="item item3">3</div>
+        <div class="item item4">4</div>
+        <div class="item item5">5</div>
+        <div class="item item6">6</div>
+        <div class="item item7">7</div>
+        <div class="item item8">8</div>
+        <div class="item item9">9</div>
+    </div>
+</body>
+</html>
