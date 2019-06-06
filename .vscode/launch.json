@@ -58,6 +58,18 @@
             "request": "launch",
             "name": "ws/03",
             "program": "${workspaceFolder}/ws/03/server.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "algorithm/01",
+            "program": "${workspaceFolder}/2019.06.04/algorithm/index1.js"
+        },
+        {
+            "type": "node",
+            "request": "launch",
+            "name": "algorithm/02",
+            "program": "${workspaceFolder}/2019.06.04/algorithm/index2.js"
         }
     ]
 }

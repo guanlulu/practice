@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        li {
+            list-style: none;
+        }
+        span {
+            margin-right: 20px;
+        }
+    </style>
+</head>
+<body>
+    <p style="font-size: 20px;color: red;">数据显示</p>
+    <ul>
+
+    </ul>
+    <button onclick='exportFile()'>导出</button>
+    <a id="downlink"></a>
+</body>
+<script src="./xlsx.full.min.js"></script>
+<script>
+    // https://segmentfault.com/a/1190000011057149?utm_source=tag-newest
+    const jsonData = [
+            {
+              name:'路人甲',
+              phone:'123456',
+              email:'123@123456.com'
+            },
+            {
+              name:'炮灰乙',
+              phone:'123456',
+              email:'123@123456.com'
+            },
+            {
+              name:'土匪丙',
+              phone:'123456',
+              email:'123@123456.com'
+            },
+            {
+              name:'流氓丁',
+              phone:'123456',
+              email:'123@123456.com'
+            }
+    ]
+
+    var ul = document.querySelector('ul')
+    var inner_html = ''
+    jsonData.map(v => {
+        inner_html = inner_html + `<li><span>${v.name}</span><span>${v.phone}</span><span>${v.email}</span></li>`
+    })
+    ul.innerHTML = inner_html
+
+
+    function exportFile() {
+        let data = [{}]
+        // 将表头提取出来重新组成一个数组
+        for (let k in jsonData[0]) {
+          data[0][k] = k
+        }
+        data = data.concat(jsonData)
+        downloadExl(data, '菜单')
+    }
+
+
+    var outFile = document.getElementById('downlink')
+    function downloadExl(json, downName, type) {
+        let keyMap = [] 
+        // 获取键
+        for (let k in json[0]) {
+            keyMap.push(k)
+        }
+        console.info('keyMap', keyMap, json)
+        // 用来保存转换好的json
+        let tmpdata = {}
+        // json.map 结果是个二维数组
+        // reduce 结果 [{v: xxx,position: xxx},{},...]
+        json.map((v, i) => {
+            return keyMap.map((k, j) => {
+                return Object.assign({}, {
+                    v: v[k],
+                    position: (j > 25 ? getCharCol(j) : String.fromCharCode(65 + j)) + (i + 1)
+                })
+            })
+        }).reduce((prev, next) => {
+            return prev.concat(next)
+        }).forEach(function (v) {
+            tmpdata[v.position] = {
+                v: v.v
+            }
+        })
+        
+        let outputPos = Object.keys(tmpdata)  // 设置区域,比如表格从A1到D10
+
+        var mySheet = Object.assign({},
+              tmpdata, // 内容
+              {
+                '!ref': outputPos[0] + ':' + outputPos[outputPos.length - 1] // 设置填充区域
+              })
+        console.log('mySheet',mySheet)
+        
+        let tmpWB = {
+          SheetNames: ['mySheet'], // 保存的表标题
+          Sheets: {
+            'mySheet': Object.assign({},
+              tmpdata, // 内容
+              {
+                '!ref': outputPos[0] + ':' + outputPos[outputPos.length - 1] // 设置填充区域
+              })
+          }
+        }
+        let tmpDown = new Blob([s2ab(XLSX.write(tmpWB,
+          {bookType: (type === undefined ? 'xlsx' : type), bookSST: false, type: 'binary'} // 这里的数据是用来定义导出的格式类型
+        ))], {
+          type: ''
+        })  
+        // 创建二进制对象写入转换好的字节流
+        var href = URL.createObjectURL(tmpDown)  // 创建对象超链接
+        outFile.download = downName + '.xlsx'  // 下载名称
+        outFile.href = href  // 绑定a标签
+        outFile.click()  // 模拟点击实现下载
+        setTimeout(function () {  // 延时释放
+          URL.revokeObjectURL(tmpDown) // 用URL.revokeObjectURL()来释放这个object URL
+        }, 100)
+    }
+
+
+    // 字符串转字符流
+    function s2ab(s) { 
+        var buf = new ArrayBuffer(s.length)
+        var view = new Uint8Array(buf)
+        for (var i = 0; i !== s.length; ++i) {
+          view[i] = s.charCodeAt(i) & 0xFF
+        }
+        return buf
+    }
+
+
+    // 将指定的自然数转换为26进制表示。映射关系：[0-25] -> [A-Z]。
+    function getCharCol(n) {
+        let s = ''
+        let m = 0
+        while (n > 0) {
+          m = n % 26 + 1
+          s = String.fromCharCode(m + 64) + s
+          n = (n - m) / 26
+        }
+        return s
+    }
+</script>
+</html>

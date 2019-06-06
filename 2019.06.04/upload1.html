@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    <input type="file" onchange="importFile(this)" id="imFile" 
+        accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
+    <br>
+    <p class="error" style="font-size: 20px;color: red;"></p>
+    <ul>
+
+    </ul>
+</body>
+<script src="./xlsx.full.min.js"></script>
+<script>
+    var imFile = document.getElementById('imFile')
+    var error_box = document.querySelector('.error')
+    // var data_box = document.querySelector('.data')
+    var excelData
+
+    function importFile() { // 导入excel
+        let obj = imFile
+        var f = obj.files[0]
+        var reader = new FileReader()
+        let self = this
+        reader.onload = function (e) {
+            var data = e.target.result
+            if (self.rABS) {
+                self.wb = XLSX.read(btoa(this.fixdata(data)), {  // 手动转化
+                    type: 'base64'
+                })
+            } else {
+                self.wb = XLSX.read(data, {
+                    type: 'binary'
+                })
+            }
+            let json = XLSX.utils.sheet_to_json(self.wb.Sheets[self.wb.SheetNames[0]])
+            console.log(typeof json)
+            dealFile(analyzeData(json)) // analyzeData: 解析导入数据
+        }
+        if (this.rABS) {
+            reader.readAsArrayBuffer(f)
+        }else {
+            reader.readAsBinaryString(f)
+        }
+    }
+
+    function analyzeData(data) {  // 此处可以解析导入数据
+        return data
+    }
+
+    function dealFile(data) {   // 处理导入的数据
+        console.log(data)
+        imFile.value = ''
+        if (data.length <= 0) {
+            error_box.innerHTML = '请导入正确信息'
+        } else {
+            excelData = data
+            var ul = document.querySelector('ul')
+            var inner_html = ''
+            data.map(v => {
+                inner_html = inner_html + `<li><span>${v.name} </span><span>${v.phone} </span><span>${v.email} </span></li>`
+            })
+            ul.innerHTML = inner_html
+        }
+    }
+</script>
+</html>
