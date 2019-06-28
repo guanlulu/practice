@@ -137,6 +137,14 @@
     INSERT INTO table_name ( field1, field2,...fieldN ) VALUES ( value1, value2,...valueN );
     # 查询数据
     SELECT column_name,column_name FROM table_name [WHERE Clause] [LIMIT N] [ OFFSET M]
+    # 更新数据
+    UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE Clause]
+    # 删除数据
+    DELETE FROM table_name [WHERE Clause]
+    # 简单描述表结构，字段类型
+    desc table_name;
+    # 删除数据库
+    drop database 数据库名;
 ### 使用 nodejs 连接 mysql
 
 ```
