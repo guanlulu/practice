@@ -1,0 +1,78 @@
+html,body {
+  width: 100%;
+  height: 100%;
+}
+.color1 {
+  width: 100%;
+  height: 210px;
+  background: dodgerblue;
+}
+.color2 {
+  width: 100%;
+  height: 210px;
+  background: forestgreen;
+}
+#share {
+    position: absolute;
+    z-index: -1;
+  }
+  #share .content {
+    width: 300px;
+    height: auto;
+    background: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  /* http://pic26.nipic.com/20130116/1773545_152734135000_2.jpg */
+  /* http://ethanwp.oss-cn-shenzhen.aliyuncs.com/wp/2018/12/wBHYXkfkJ_E.jpg */
+  #share .card-top {
+    width: 100%;
+    height: 210px;
+    background: url("http://ethanwp.oss-cn-shenzhen.aliyuncs.com/wp/2018/12/wBHYXkfkJ_E.jpg") center no-repeat;
+    background-size: 100% 100%;
+    z-index: 1;
+    display: flex;
+    align-items: flex-end;
+  }
+  #share .card-top .text-wrap {
+    width: 100%;
+    height: 30px;
+    background: linear-gradient(360deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0));
+  }
+  #share .card-top .text-wrap p {
+    width: 100%;
+    height: 30px;
+    text-align: center;
+    color: #fff;
+    font-size: 16px;
+  }
+  #share .card-bottom {
+    width: 100%;
+  }
+  #share .card-bottom .info {
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    text-align: center;
+    margin-top: 10px;
+    color: #8692a4;
+  }
+  #share .card-bottom .code-con {
+    height: auto;
+    padding-bottom: 10px;
+    text-align: center;
+  }
+  #share .card-bottom .code-con #code {
+    width: 100%;
+    text-align: center;
+    height: 100px;
+  }
+  #share .card-bottom .code-con #code img {
+    width: 100px;
+    height: 100px;
+  }
+  #share .card-bottom .code-con .code-me {
+    width: 100%;
+    text-align: center;
+    color: #8692a4;
+  }

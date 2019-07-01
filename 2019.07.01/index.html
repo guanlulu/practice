@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="./demo.css">
+    <script src="./canvas2image.js"></script>
+    <script src="https://cdn.bootcss.com/qrcode-generator/1.4.1/qrcode.min.js"></script>
+    <script src="https://cdn.bootcss.com/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+</head>
+<body>
+    <div id="share">
+        <div class="content">
+            <div class="color1">
+            </div>
+            <div class="color2">
+            </div>
+            <div class="card-top">
+                <div class="text-wrap">
+                    <p>Ethan — 前端工程师</p>
+                </div>
+            </div>
+            <div class="card-bottom">
+                <div class="info">洛阳亲故如相问，就说我在敲代码。</div>
+                <div class="code-con">
+                    <div id="code"></div>
+                    <div class="code-me">扫描二维码访问更多内容</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    handleShare()
+    function handleShare() {
+        const _self = this
+        //定义查找元素方法
+        function $(selector) {
+            return document.querySelector(selector)
+        }
+        var main = {
+            init:function(){
+                _self.show = true
+                main.getQrCode()
+            },
+            //设置监听事件
+            getQrCode:function(){
+                let codeEle = document.getElementById('code');
+                var typeNumber = 4;
+                var errorCorrectionLevel = 'L';
+                var qr = qrcode(typeNumber, errorCorrectionLevel);
+                qr.addData('http://resume.ethan.pub');
+                qr.make();
+                codeEle.innerHTML = qr.createImgTag();
+                main.html2Canvas();
+            },
+            //获取像素密度
+            getPixelRatio:function(context){
+                var backingStore = context.backingStorePixelRatio ||
+                        context.webkitBackingStorePixelRatio ||
+                        context.mozBackingStorePixelRatio ||
+                        context.msBackingStorePixelRatio ||
+                        context.oBackingStorePixelRatio ||
+                        context.backingStorePixelRatio || 1;
+                return (window.devicePixelRatio || 1) / backingStore;
+            },
+            
+            //绘制dom 元素，生成截图canvas
+            html2Canvas: function () {
+                // 固定宽度 ？？？
+                var shareContent = $("#share");// 需要绘制的部分的 (原生）dom 对象 ，注意容器的宽度不要使用百分比，使用固定宽度，避免缩放问题
+                var width = shareContent.offsetWidth;  // 获取(原生）dom 宽度
+                var height = shareContent.offsetHeight; // 获取(原生）dom 高
+                var offsetTop = shareContent.offsetTop;  //元素距离顶部的偏移量
+
+                var canvas = document.createElement('canvas');  //创建canvas 对象
+                var context = canvas.getContext('2d');
+                var scaleBy = main.getPixelRatio(context);  //获取像素密度的方法 (也可以采用自定义缩放比例)
+                canvas.width = width * scaleBy;   //这里 由于绘制的dom 为固定宽度，居中，所以没有偏移
+                canvas.height = (height + offsetTop) * scaleBy;  // 注意高度问题，由于顶部有个距离所以要加上顶部的距离，解决图像高度偏移问题
+                context.scale(scaleBy, scaleBy);
+                context.translate(0, 0);
+
+                var opts = {
+                    useCORS:true,//允许加载跨域的图片
+                    scale:scaleBy, // 添加的scale 参数
+                    canvas:canvas, //自定义 canvas
+                    width:width, //dom 原始宽度
+                    height:height //dom 原始高度
+                }
+                html2canvas(shareContent, opts).then(function (canvas) {
+                    var context = canvas.getContext('2d');
+                    // 【重要】关闭抗锯齿
+                    context.mozImageSmoothingEnabled = false;
+                    context.webkitImageSmoothingEnabled = false;
+                    context.msImageSmoothingEnabled = false;
+                    context.imageSmoothingEnabled = false;
+                    _self.canvas = canvas;
+                    var img = Canvas2Image.convertToImage(canvas, canvas.width, canvas.height);
+                    img.style.width = canvas.width / scaleBy + "px";
+                    img.style.height = canvas.height / scaleBy + "px";
+                    img.style.position = "absolute";
+                    img.style.bottom = 0 + "px";
+                    img.style.left = 0 + "px";
+                    $('body').appendChild(img);
+                    if (_self.percent > 0) {
+                        _self.percent = 0
+                    }
+                    let sid = window.setInterval(() => {
+                        _self.percent++
+                        if (_self.percent >= 100) {
+                            _self.hasShare = true;
+                            window.clearInterval(sid)
+                        }
+                    }, 10)
+                    $('#share').style.display = 'none'
+                });
+            }
+        }
+
+        //最后运行代码
+        if(this.isTap){
+            this.isTap = false
+            return
+        } else {
+            this.isTap = true
+            if(this.hasShare){
+                this.show = true
+            }else{
+                main.init()
+            }
+        }
+            
+            
+    }
+</script>
+</html>
