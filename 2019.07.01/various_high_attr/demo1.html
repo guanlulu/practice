@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body {
+            width: 100%;
+            height: 100%;
+        }
+        ul {
+            width: 300px;
+            height: 100%;
+            margin: 0 auto;
+            overflow-y: auto;
+        }
+        li {
+            height: 300px;
+            background: #eeeeee;
+            list-style: none;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li id="last"></li>
+    </ul>
+</body>
+<script>
+    var ul = document.querySelector('ul')
+    var last_li = document.querySelector('#last')
+    // 千万不要尝试用 element.style.width 或 element.style.height 来获得元素的高度和宽度
+    // 它们的默认值都是 0
+    // 行内样式才能获取到
+    console.log(ul.style.width)
+    console.log(ul.style.height)
+    // ul 内部有滚动条
+    ul.addEventListener('scroll',function() {
+        // console.log(ul.scrollHeight)
+        // console.log(ul.scrollTop)
+        // console.log(ul.clientHeight)
+        // console.log('------------------')
+        if(ul.scrollHeight - ul.scrollTop === ul.clientHeight) {
+            console.log('scroll to the bottom')
+        }
+    })
+</script>
+</html>
