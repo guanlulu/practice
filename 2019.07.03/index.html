@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0
+        }
+
+        body {
+            font: 14px Helvetica, sans-serif;
+            font-weight: 700;
+            background: #fff
+        }
+
+        ul.line {
+            width: 500px;
+            height: 30px;
+            background-color: #f8f8f8;
+            overflow: hidden;
+            margin-bottom: 20px;
+            border: 2px solid #363636;
+            margin-top: 100px;
+            margin-left: 100px
+        }
+
+        ul.line li {
+            height: 30px;
+            text-indent: 15px;
+            font-size: 12px;
+            line-height: 30px;
+            list-style: none;
+            transition: margin-top 2s;
+        }
+    </style>
+</head>
+
+<body>
+    <button>点击滚动</button>
+    <ul class="line">
+        <li style="margin-top: 0px;"><a title="简易的点击展开/关闭效果(原生JS版和JQ版)" href="#">简易的点击展开/关闭效果(原生JS版和JQ版)</a> 2010年08月02日 (6)</li>
+        <li style="margin-top: 0px;"><a title="getElementsByTagName的简写方式" href="#">getElementsByTagName的简写方式</a> 2010年06月24日 (4)</li>
+        <li style="margin-top: 0px;"><a title="一个简单的鼠标划过切换效果" href="#">一个简单的鼠标划过切换效果</a> 2010年05月23日 (4)</li>
+        <li style="margin-top: 0px;"><a title="奇或偶数行高亮显示及鼠标划过高亮显示类" href="#">奇或偶数行高亮显示及鼠标划过高亮显示类</a> 2010年05月05日 (5)</li>
+        <li style="margin-top: 0px;"><a title="一个简单的纵横向动画效果类" href="#">一个简单的纵横向动画效果类</a> 2010年05月02日 (4)</li>
+        <li style="margin-top: 0px;"><a title="document.getElementById的简写方式" href="#">document.getElementById的简写方式</a> 2010年04月18日 (1)</li>
+        <li style="margin-top: 0px;"><a title="两种简单实现菜单高亮显示的JS类" href="#">两种简单实现菜单高亮显示的JS类</a> 2010年04月17日 (10)</li>
+    </ul>
+</body>
+<!-- <script src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script> -->
+<script>
+    // (function($) {
+    //     $.fn.extend({
+    //         "slideUp": function(value) {
+    //             var docthis = this;
+    //             value = $.extend({
+    //                 "li_h": "30",
+    //                 "time": 2000,
+    //                 "movetime": 1000
+    //             }, value)
+
+    //             function autoani() {
+    //                 $("li:first", docthis).animate({
+    //                     "margin-top": -value.li_h
+    //                 }, value.movetime, function() {
+    //                     $(this).css("margin-top", 0).appendTo(".line");
+    //                 })
+    //             }
+    //             var anifun = setInterval(autoani, value.time);
+    //             $(docthis).children("li").hover(function() {
+    //                 clearInterval(anifun);
+    //             }, function() {
+    //                 anifun = setInterval(autoani, value.time);
+    //             })
+    //         }
+    //     })
+    // })(jQuery)
+</script>
+<script type="text/javascript">
+    // $(function() {
+    //     $(".line").slideUp();
+    // })
+</script>
+<script>
+    var ul = document.querySelector('ul')
+    var timer = setInterval(function() {
+        var li_first = document.querySelector('li')
+        li_first.style.marginTop = -30 + "px"
+        setTimeout(function() {
+            li_first.style.marginTop = 0 + "px"
+            ul.appendChild(li_first)
+        },2000)
+    },2000)
+
+    var li = document.querySelectorAll('li')
+    for(var i = 0;i < li.length; i++) {
+        li[i].onmouseenter = function() {
+            clearInterval(timer)
+            timer = null
+        }
+        li[i].onmouseleave = function() {
+            timer = setInterval(function() {
+                var li_first = document.querySelector('li')
+                li_first.style.marginTop = -30 + "px"
+                setTimeout(function() {
+                    li_first.style.marginTop = 0 + "px"
+                    ul.appendChild(li_first)
+                },2000)
+            },2000)
+        }
+    }
+</script>
+</html>

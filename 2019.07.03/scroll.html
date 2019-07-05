@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style type="text/css">
+        ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #content li {
+            font-size: 14px;
+            height: 20px;
+            line-height: 20px;
+        }
+
+        #scrollUpBox {
+            height: 200px;
+            padding: 0 15px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0000ff;
+            overflow: hidden;
+        }
+
+        #scrollLeftBox {
+            width: 100px;
+            padding: 10px 15px;
+            font-size: 20px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px #0000ff;
+        }
+    </style>
+</head>
+
+<body>
+    <input type="text" id="scrollLeftBox">
+
+    <script type="text/javascript">
+        var str = ' 123 456 789 ';
+        var scrollLeftBox = document.getElementById('scrollLeftBox');
+
+        function scrollLeft() {
+            document.title = str;
+            str = str.substring(1, str.length) + str.substring(0, 1);
+        }
+        setInterval(scrollLeft, 500);
+
+
+        // document
+        // 对象集合 all/anchors/applets/forms/images/links
+        // 对象属性 body/cookie/domain/lastModifies/referrer/title/URL
+        // 对象方法 close()/getElementsById()/getElementsByName()/getElementsByTagName()/open()/write()/writeIn()
+        // ...
+    </script>
+</body>
+
+</html>
