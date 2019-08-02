@@ -74,9 +74,12 @@
             url: 'http://localhost:4000/jsonp',
             type: 'get',
             dataType: 'jsonp',  // 请求方式为jsonp
-            jsonpCallback: "onBack",    // 自定义回调函数名
+            // jsonpCallback: "onBack",    // 自定义回调函数名
             data: {
                 type: 'json'
+            },
+            success: function(res) {
+                console.log(res)
             }
         })
 

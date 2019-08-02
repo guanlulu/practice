@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body,#root {
+            width: 100%;
+            height: 100%;
+        }
+        body {
+            background-color: #f9f9f9;
+            color: #333;
+            font-family: 'Avenir', Helvetica, Arial, sans-serif;
+            display: flex;
+            margin: 0;
+        }
+        .root {
+            display: flex;
+            width: 50%;
+            align-items: center;
+            flex: 1 1 0;
+        }
+        .list {
+            width: 80%;
+            max-height: 80vh;
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 0;
+            overflow: auto;
+            background-color: #f3f3f3;
+            border: 1px solid #EFEFEF;
+        }
+        .list-item {
+            position: relative;
+            position: relative;
+            width: 100%;
+            display: block;
+            padding: 20px;
+            background-color: #FFF;
+            border-bottom: 1px solid #EFEFEF;
+            box-sizing: border-box;
+            -webkit-user-select: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="root">
+        <ul class="list">
+            <li class="list-item" data-inex="1">item1</li>
+            <li class="list-item" data-inex="2">item2</li>
+            <li class="list-item" data-inex="3">item3</li>
+            <li class="list-item" data-inex="4">item4</li>
+            <li class="list-item" data-inex="5">item5</li>
+            <li class="list-item" data-inex="6">item6</li>
+            <li class="list-item" data-inex="7">item7</li>
+            <li class="list-item" data-inex="8">item8</li>
+            <li class="list-item" data-inex="9">item9</li>
+            <li class="list-item" data-inex="10">item10</li>
+        </ul>
+    </div>
+</body>
+<script>
+    // ul 绑定事件
+    var ul = document.querySelector('.list')
+    var events_func = {
+        start: handleStart,
+        move: handleMove,
+        end: handleEnd
+    }
+    var events = {
+        start: ['touchstart', 'mousedown'],
+        move: ['touchmove', 'mousemove'],
+        end: ['touchend', 'touchcancel', 'mouseup']
+    }
+    for (const key in events_func) {
+        console.log(events[key])
+        events[key].forEach(eventName =>
+          ul.addEventListener(eventName, events_func[key], false)
+        )
+    }
+    
+    // 全局变量
+    var _touched, // 是否接触
+        sorting,  // 是否开始排序
+        sortingIndex, 
+        index,    // 当前拖拽的li-index
+        newIndex, // 
+        initialOffset, // pageX/pageY
+        offsetEdge, // offsetTop/offsetLeft
+        sortableGhost,// 隐藏起来的真正的 DOM
+        helper, // appendTo body 里的拖拽 DOM
+        boundingClientRect, // 元素相对于视窗的位置集合
+        width,
+        height,
+        translate,
+
+    function handleStart(e) {
+        console.log(e)
+        if (e.button === 2 || shouldCancelStart(e)) {
+            return false;
+        }
+        var node = e.target
+        _touched = true
+        if(node && !sorting) {
+            handlePress(e)
+        }
+    }
+
+    function handlePress(e) {
+        var _node = e.target
+        index = _node.dataset.index
+        newIndex = _node.dataset.index
+        initialOffset = {
+            x: e.pageX,
+            y: e.pageY
+        }
+        offsetEdge = {
+            top: _node.offsetTop,
+            left: _node.offsetLeft
+        }
+        boundingClientRect = _node.getBoundingClientRect()
+        width = _node.offsetWidth
+        height = _node.offsetHeight
+        var _clonedNode = _node.cloneNode(true)
+        // clone 元素 appedTo body
+        helper = document.querySelector('body').appendChild(_clonedNode)
+        helper.style.position = 'fixed'
+        helper.style.top = `${boundingClientRect.top}px`
+        helper.style.left = `${boundingClientRect.left}px`
+        helper.style.width = `${width}px`
+        helper.style.height = `${height}px`
+        helper.style.boxSizing = 'border-box'
+        helper.style.pointerEvents = 'none'
+        // 真正的 node 隐藏
+        sortableGhost = _node
+        _node.style.visibility = 'hidden'
+        _node.style.opacity = 0
+        // node 绑定事件
+        events.move.forEach(eventName =>
+            _node.addEventListener(
+                eventName,
+                handleSortMove,
+                false
+            )
+        )
+        events.end.forEach(eventName =>
+            _node.addEventListener(
+                eventName,
+                handleSortEnd,
+                false
+            )
+        )
+        sorting = true
+        sortingIndex = index
+    }
+
+    function handleSortMove(e) {
+        e.preventDefault()
+        updatePosition(e)
+        animateNodes()
+    }
+
+    function updatePosition(e) {
+        var _offset = {
+            x: e.pageX,
+            y: e.pageY
+        }
+        var _translate = {
+            x: 0,
+            y: offset.y - initialOffset.y
+        }
+        translate =  _translate
+        helper.style.Transform = `translate3d(${translate.x}px,${translate.y}px, 0)`
+    }
+
+    function animateNodes() {
+        var _nodes = document.querySelectorAll('.list>.list-item')
+        var _sortingOffset = {
+            left: offsetEdge.left + translate.x,
+            top: offsetEdge.top + translate.y,
+        }
+        newIndex = null
+        for (let i = 0, len = _nodes.length; i < len; i++) {
+            var _node = nodes[i]
+            var _index = _node.dataset.index
+            var _width = _node.offsetWidth
+            var _height = _node.offsetHeight
+            var _offset = {
+                width: _width / 2,
+                height: _height / 2,
+            }
+            var _translate = {
+                x: 0,
+                y: 0,
+            }
+            var _edgeOffset = {
+                top: _node.offsetTop,
+                left: _node.offsetLeft,
+            }
+            if(index == _index) {
+                sortableGhost = _node
+                _node.style.visibility = 'hidden'
+                _node.style.opacity = 0
+                continue
+            }
+            if (_index > index && _sortingOffset.top + _offset.height >= _edgeOffset.top) {
+                _translate.y = -height
+                newIndex = _index
+            } else if (_index < index && _sortingOffset.top <= _edgeOffset.top + _offset.height) {
+                _translate.y = height
+                if (newIndex == null) {
+                    newIndex = index
+                }
+            }
+
+            _node.style.Transform = `translate3d(${_translate.x}px,${_translate.y}px,0)`
+
+        }
+        if (newIndex == null) {
+            newIndex = index
+        }
+    }
+    
+
+    function handleSortEnd(e) {
+        var _node = e.target
+        events.move.forEach(eventName =>
+            _node.removeEventListener(
+                eventName,
+                handleSortMove
+            )
+        )
+        events.end.forEach(eventName =>
+          _node.removeEventListener(
+              eventName, 
+              handleSortEnd)
+        )
+        var _nodes = document.querySelectorAll('.list>.list-item')
+
+        const onEnd = () => {
+            // Remove the helper from the DOM
+            helper.parentNode.removeChild(helper)
+
+            if (sortableGhost) {
+                sortableGhost.style.visibility = ''
+                sortableGhost.style.opacity = ''
+            }
+
+            for (let i = 0, len = _nodes.length; i < len; i++) {
+                const _node = _nodes[i]
+
+                // Remove the transforms / transitions
+                _node.style.Transform = ''
+                _node.style.TransitionDuration = ''
+            }
+
+            sorting = false
+            sortingIndex = null
+
+            touched = false
+        }
+
+        onEnd()
+    }
+
+    function handleMove(e) {
+        if (sorting && _touched) {
+            handlePress(e)
+        }
+    }
+
+    function handleEnd(e) {
+        touched = false
+    }
+</script>
+</html>

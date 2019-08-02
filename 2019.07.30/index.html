@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        button {
+            transition: all 0.2s;
+        }
+    </style>
+</head>
+<body>
+    <div class="box">
+        <button>click1</button>
+        <button>click2</button>
+        <button>click3</button>
+        <button>click4</button>
+        <button class="click5">click5</button>
+    </div>
+</body>
+<script>
+    var box = document.querySelector('.box')
+    box.addEventListener('click',function($event) {
+        console.log('------------------------------')
+        console.log(event) // 点击的Dom本身
+        console.log(event.target.innerText)
+    })
+
+    // Convert NodeList to Array
+    var buttons = document.querySelectorAll('button')
+    console.log(buttons)
+
+    // 伪数组 有length属性，按照索引取值
+    // 可以使用 for 循环
+    var buttons1 = Array.prototype.slice.call(buttons)
+    console.log({buttons1})
+    // 
+    var buttons2 = Array.from(buttons)
+    console.log({buttons2})
+    //
+    var buttons3 = [...buttons]
+    console.log({buttons3})
+
+    if(timer) {
+        clearTimeout(timer)
+        timer = null
+    }
+    var btn5 = document.querySelector('.click5')
+    var timer = setTimeout(function() {
+        console.log('setTimeout')
+        btn5.style.transform = 'translate3d(200px,200px,0)'
+    },2000)
+
+    var node = document.createElement('button')
+    node.classList.add('click6')
+    node.innerText = 'click6'
+    box.appendChild(node)
+
+    if(timer2) {
+        clearTimeout(timer2)
+        timer2 = null
+    }
+    var timer2 = setTimeout(function() {
+        console.log('setTimeout timer2')
+        console.log(node.parentNode)
+        node.parentNode.removeChild(node)
+    },3000)
+
+    // transitionend 事件在 CSS 完成过渡后触发
+    btn5.addEventListener('transitionend',function() {
+        alert('btn transition end')
+    })
+
+    // JS是单线程的，alert（）会阻塞JS继续执行
+    // Chrome 的 alert 对 ajax 是完全阻塞的，但是IE10和FF即使弹出alert，也不会影响正在ajax的访问，也就是不阻塞ajax
+</script>
+</html>

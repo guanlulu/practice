@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+    </style>
+<body>
+    <div id="app">
+        <!-- :key="item.id" -->
+        <div class="box1" v-for="(item,index) in arr" :key="item.id">
+            <flag>
+                <button @click="del(index)">删除</button>
+            </flag> 
+        </div>
+        <div @click="continue_to_add">增加</div>
+    </div>
+</body>
+<script src="https://cdn.bootcss.com/vue/2.6.10/vue.min.js"></script>
+<script>
+    Vue.component('flag',{
+        name: 'flag',
+        template: `
+            <div style="border: 1px solid #ccc;padding: 10px;width: 150px;margin-bottom: 10px;">
+                <span>{{name}}</span><button @click="flag_data = !flag_data">点击改变</button><br >
+                <div>{{flag_data}}</div>
+                <slot></slot>
+            </div>
+        `,
+        data() {
+            return {
+                flag_data: true
+            }
+        },
+        methods: {
+
+        }
+    })
+    var app = new Vue({
+        el: "#app",
+        data: {
+            arr: [
+                {
+                    id: 1,
+                    name: 'name1'
+                }
+            ]
+        },
+        methods: {
+            continue_to_add() {
+                let id = Math.max.apply(null,this.arr.map(v => v.id)) + 1
+                this.arr.push({
+                    id: id,
+                    name: `name${id}`
+                })
+            },
+            del(index) {
+                this.arr.splice(index,1)
+            }
+        }
+    })
+</script>
+</html>
