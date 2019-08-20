@@ -49,19 +49,20 @@
 <body>
     <div class="root">
         <ul class="list">
-            <li class="list-item" data-inex="1">item1</li>
-            <li class="list-item" data-inex="2">item2</li>
-            <li class="list-item" data-inex="3">item3</li>
-            <li class="list-item" data-inex="4">item4</li>
-            <li class="list-item" data-inex="5">item5</li>
-            <li class="list-item" data-inex="6">item6</li>
-            <li class="list-item" data-inex="7">item7</li>
-            <li class="list-item" data-inex="8">item8</li>
-            <li class="list-item" data-inex="9">item9</li>
-            <li class="list-item" data-inex="10">item10</li>
+            <li class="list-item" data-index="1">item1</li>
+            <li class="list-item" data-index="2">item2</li>
+            <li class="list-item" data-index="3">item3</li>
+            <li class="list-item" data-index="4">item4</li>
+            <li class="list-item" data-index="5">item5</li>
+            <li class="list-item" data-index="6">item6</li>
+            <li class="list-item" data-index="7">item7</li>
+            <li class="list-item" data-index="8">item8</li>
+            <li class="list-item" data-index="9">item9</li>
+            <li class="list-item" data-index="10">item10</li>
         </ul>
     </div>
 </body>
+<script src="./index.js"></script>
 <script>
     // ul 绑定事件
     var ul = document.querySelector('.list')
@@ -70,10 +71,15 @@
         move: handleMove,
         end: handleEnd
     }
+    // var events = {
+    //     start: ['touchstart', 'mousedown'],
+    //     move: ['touchmove', 'mousemove'],
+    //     end: ['touchend', 'touchcancel', 'mouseup']
+    // }
     var events = {
-        start: ['touchstart', 'mousedown'],
-        move: ['touchmove', 'mousemove'],
-        end: ['touchend', 'touchcancel', 'mouseup']
+        start: ['mousedown'],
+        move: ['mousemove'],
+        end: ['mouseup']
     }
     for (const key in events_func) {
         console.log(events[key])
@@ -86,8 +92,9 @@
     var _touched, // 是否接触
         sorting,  // 是否开始排序
         sortingIndex, 
-        index,    // 当前拖拽的li-index
-        newIndex, // 
+        node, // 当前拖拽的元素
+        index_,    // 当前拖拽的li-index
+        newIndex_, // 
         initialOffset, // pageX/pageY
         offsetEdge, // offsetTop/offsetLeft
         sortableGhost,// 隐藏起来的真正的 DOM
@@ -95,69 +102,81 @@
         boundingClientRect, // 元素相对于视窗的位置集合
         width,
         height,
-        translate,
+        translate // 此处多一个逗号都不行
 
     function handleStart(e) {
-        console.log(e)
         if (e.button === 2 || shouldCancelStart(e)) {
-            return false;
+            return false
         }
-        var node = e.target
-        _touched = true
-        if(node && !sorting) {
+        var node = closest(e.target, el => el.sortableInfo != null)
+        // console.log(node)
+        if(node && node.sortableInfo && !sorting) {
+            const {index} = node.sortableInfo
+            if(!closest(e.target, el => el.sortableInfo != null)) return
+            active = {index}
             handlePress(e)
         }
     }
 
     function handlePress(e) {
-        var _node = e.target
-        index = _node.dataset.index
-        newIndex = _node.dataset.index
-        initialOffset = {
-            x: e.pageX,
-            y: e.pageY
-        }
-        offsetEdge = {
-            top: _node.offsetTop,
-            left: _node.offsetLeft
-        }
-        boundingClientRect = _node.getBoundingClientRect()
-        width = _node.offsetWidth
-        height = _node.offsetHeight
-        var _clonedNode = _node.cloneNode(true)
-        // clone 元素 appedTo body
-        helper = document.querySelector('body').appendChild(_clonedNode)
-        helper.style.position = 'fixed'
-        helper.style.top = `${boundingClientRect.top}px`
-        helper.style.left = `${boundingClientRect.left}px`
-        helper.style.width = `${width}px`
-        helper.style.height = `${height}px`
-        helper.style.boxSizing = 'border-box'
-        helper.style.pointerEvents = 'none'
-        // 真正的 node 隐藏
-        sortableGhost = _node
-        _node.style.visibility = 'hidden'
-        _node.style.opacity = 0
-        // node 绑定事件
-        events.move.forEach(eventName =>
-            _node.addEventListener(
-                eventName,
-                handleSortMove,
-                false
+        const active = getActive()
+
+        if(active) {
+            const {node} = active
+            const {index} = node.sortableInfo
+            var _node = node
+            index_ = index
+            newIndex_ = index
+            initialOffset = {
+                x: e.pageX,
+                y: e.pageY
+            }
+            offsetEdge = {
+                top: _node.offsetTop,
+                left: _node.offsetLeft
+            }
+            boundingClientRect = _node.getBoundingClientRect()
+            width = _node.offsetWidth
+            height = _node.offsetHeight
+            var _clonedNode = _node.cloneNode(true)
+            // console.log(_clonedNode)
+            // clone 元素 appedTo body
+            helper = document.querySelector('body').appendChild(_clonedNode)
+            // console.log(helper)
+            helper.style.position = 'fixed'
+            helper.style.top = `${boundingClientRect.top}px`
+            helper.style.left = `${boundingClientRect.left}px`
+            helper.style.width = `${width}px`
+            helper.style.height = `${height}px`
+            helper.style.boxSizing = 'border-box'
+            helper.style.pointerEvents = 'none'
+            // 真正的 node 隐藏
+            sortableGhost = _node
+            _node.style.visibility = 'hidden'
+            _node.style.opacity = 0
+            // node 绑定事件
+            events.move.forEach(eventName =>
+                window.addEventListener(
+                    eventName,
+                    handleSortMove,
+                    false
+                )
             )
-        )
-        events.end.forEach(eventName =>
-            _node.addEventListener(
-                eventName,
-                handleSortEnd,
-                false
+            events.end.forEach(eventName =>
+                window.addEventListener(
+                    eventName,
+                    handleSortEnd,
+                    false
+                )
             )
-        )
-        sorting = true
-        sortingIndex = index
+            sorting = true
+            sortingIndex = index
+        }
     }
 
     function handleSortMove(e) {
+        if(e.target.tagName.toLowerCase() == 'ul') return 
+        // console.log(e)
         e.preventDefault()
         updatePosition(e)
         animateNodes()
@@ -170,24 +189,24 @@
         }
         var _translate = {
             x: 0,
-            y: offset.y - initialOffset.y
+            y: _offset.y - initialOffset.y
         }
         translate =  _translate
-        helper.style.Transform = `translate3d(${translate.x}px,${translate.y}px, 0)`
+        helper.style.transform = `translate3d(${translate.x}px,${translate.y}px, 0)`
     }
 
     function animateNodes() {
-        var _nodes = document.querySelectorAll('.list>.list-item')
+        var _nodes = getOrderedRefs()
         var _sortingOffset = {
             left: offsetEdge.left + translate.x,
             top: offsetEdge.top + translate.y,
         }
         newIndex = null
         for (let i = 0, len = _nodes.length; i < len; i++) {
-            var _node = nodes[i]
-            var _index = _node.dataset.index
-            var _width = _node.offsetWidth
-            var _height = _node.offsetHeight
+            var {node} = _nodes[i]
+            var _index = node.sortableInfo.index
+            var _width = node.offsetWidth
+            var _height = node.offsetHeight
             var _offset = {
                 width: _width / 2,
                 height: _height / 2,
@@ -196,49 +215,59 @@
                 x: 0,
                 y: 0,
             }
-            var _edgeOffset = {
-                top: _node.offsetTop,
-                left: _node.offsetLeft,
+            let {edgeOffset} = nodes[i]
+            var _edgeOffset = edgeOffset
+
+            if (!edgeOffset) { 
+                nodes[i].edgeOffset = (_edgeOffset = getEdgeOffset(node))
             }
-            if(index == _index) {
-                sortableGhost = _node
-                _node.style.visibility = 'hidden'
-                _node.style.opacity = 0
+
+            const nextNode = i < nodes.length - 1 && nodes[i + 1]
+            const prevNode = i > 0 && nodes[i - 1]
+
+            if (nextNode && !nextNode.edgeOffset) {
+                nextNode.edgeOffset = getEdgeOffset(nextNode.node)
+            }
+
+            if(_index == index_) {
+                sortableGhost = node
+                node.style.visibility = 'hidden'
+                node.style.opacity = 0
                 continue
             }
-            if (_index > index && _sortingOffset.top + _offset.height >= _edgeOffset.top) {
+            if (_index > index_ && _sortingOffset.top + _offset.height >= _edgeOffset.top) {
                 _translate.y = -height
-                newIndex = _index
-            } else if (_index < index && _sortingOffset.top <= _edgeOffset.top + _offset.height) {
+                newIndex_ = _index
+            } else if (_index < index_ && _sortingOffset.top <= _edgeOffset.top + _offset.height) {
                 _translate.y = height
-                if (newIndex == null) {
-                    newIndex = index
+                if (newIndex_ == null) {
+                    newIndex_ = index_
                 }
             }
-
-            _node.style.Transform = `translate3d(${_translate.x}px,${_translate.y}px,0)`
+            
+            node.style.transform = `translate3d(${_translate.x}px,${_translate.y}px,0)`
 
         }
-        if (newIndex == null) {
-            newIndex = index
+        if (newIndex_ == null) {
+            newIndex_ = index_
         }
     }
     
 
     function handleSortEnd(e) {
-        var _node = e.target
+        // var _node = e.target
         events.move.forEach(eventName =>
-            _node.removeEventListener(
+            window.removeEventListener(
                 eventName,
                 handleSortMove
             )
         )
         events.end.forEach(eventName =>
-          _node.removeEventListener(
+            window.removeEventListener(
               eventName, 
               handleSortEnd)
         )
-        var _nodes = document.querySelectorAll('.list>.list-item')
+        var _nodes = collection
 
         const onEnd = () => {
             // Remove the helper from the DOM
@@ -251,12 +280,17 @@
 
             for (let i = 0, len = _nodes.length; i < len; i++) {
                 const _node = _nodes[i]
+                const el = _node.node
+
+                _node.edgeOffset = null
 
                 // Remove the transforms / transitions
-                _node.style.Transform = ''
-                _node.style.TransitionDuration = ''
+                el.style.transform = ''
+                el.style.transitionDuration = ''
             }
 
+            // Update state
+            active = null
             sorting = false
             sortingIndex = null
 
@@ -274,6 +308,44 @@
 
     function handleEnd(e) {
         touched = false
+    }
+
+    function shouldCancelStart(e) {
+        const disabledElements = ['input', 'textarea', 'select', 'option', 'button']
+        return disabledElements.indexOf(e.target.tagName.toLowerCase()) !== -1
+    }
+
+    function closest(el, fn) {
+        while (el) {
+            if (fn(el)) return el
+            el = el.parentNode
+        }
+    }
+
+    function getActive() {
+        // 方法返回通过测试（函数内判断）的数组的第一个元素的值
+        return this.collection.find(({node}) => node.sortableInfo.index == active.index)
+    }
+
+    function getOrderedRefs() {
+        return collection.sort((a, b) => {
+            return a.node.sortableInfo.index - b.node.sortableInfo.index
+        })
+    }
+
+    function getEdgeOffset(node, offset = {top: 0, left: 0}) {
+      // Get the actual offsetTop / offsetLeft value, no matter how deep the node is nested
+        if (node) {
+            const nodeOffset = {
+                top: offset.top + node.offsetTop,
+                left: offset.left + node.offsetLeft,
+            }
+            if (node.parentNode !== ul) {
+                return getEdgeOffset(node.parentNode, nodeOffset)
+            } else {
+                return nodeOffset
+            }
+        }
     }
 </script>
 </html>

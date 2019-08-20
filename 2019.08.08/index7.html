@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    // if (!Function.prototype.bind) {
+        Function.prototype.bind1 = function () {
+            // arguments 伪数组
+            // 转换成数组，使用数组的方法，就用 call 改变指向
+            // [1,2,3].slice() => [1,2,3]
+            var self = this,                        // 保存原函数
+                context = [].shift.call(arguments), // 保存需要绑定的this上下文
+                args = [].slice.call(arguments)     // 剩余的参数转为数组
+            return function () {
+                self.apply(context, [].concat.call(args, [].slice.call(arguments)))
+            }
+        }
+    // }
+    var obj = {
+        x: 1
+    }
+    var fn1 = function(x) {
+        var x = 2
+        console.log(this.x)
+    }
+    fn1.bind1(obj)()
+
+
+    Function.prototype.myCall = function (context, ...arg) {
+        const fn = Symbol('临时属性')
+        context[fn] = this
+        context[fn](...arg)
+        delete context[fn]
+    }
+    
+    Function.prototype.myApply = function (context, arg) {
+        const fn = Symbol('临时属性')
+        context[fn] = this
+        context[fn](...arg)
+        delete context[fn]
+    }
+
+  
+</script>
+</html>

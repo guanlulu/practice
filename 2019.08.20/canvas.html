@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body {
+            background: #ccc;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="canvas" width="300" height="300">您的浏览器不支持 canvas</canvas>
+</body>
+<script>
+    var canvas = document.querySelector('#canvas')
+    canvas.style.backgroundColor = 'white'
+    var ctx = canvas.getContext("2d")
+    // ctx.shadowBlur = 10
+    // ctx.shadowOffsetX = 20
+    // ctx.shadowColor = "black"
+    // ctx.fillStyle = "red" 
+
+    /**
+     * 渐变开始点的 x 坐标 0 
+     * 渐变开始点的 y 坐标 0 
+     * 渐变结束点的 x 坐标 0
+     * 渐变结束点的 x 坐标 170
+    */
+    // var my_gradient = ctx.createLinearGradient(0,0,0,170)
+    // my_gradient.addColorStop(0,"black")
+    // my_gradient.addColorStop(1,"white")
+    // ctx.fillStyle = my_gradient
+
+
+    /**
+     * 渐变的开始圆的 x 坐标 75
+     * 渐变的开始圆的 y 坐标 50
+     * 开始圆的半径 5
+     * ... 结束
+     * grd.addColorStop(stop,color)
+     * stop 0-1 color '#fff'
+    */
+    // var grd = ctx.createRadialGradient(75,50,5,90,60,100)
+    // grd.addColorStop(0,"red")
+    // grd.addColorStop(1,"white")
+    // // Fill with gradient
+    // ctx.fillStyle = grd
+
+    // ctx.fillRect(20,20,100,80)
+
+
+    // ctx.beginPath()
+    // ctx.lineCap="square"
+    // ctx.moveTo(20,20)
+    // ctx.lineTo(20,200)
+
+    // ctx.beginPath()
+    // ctx.lineWidth = 10
+    // ctx.lineJoin = "miter"
+    // ctx.moveTo(20,20)
+    // ctx.lineTo(100,50)
+    // ctx.lineTo(20,100)
+
+    // ctx.beginPath()
+    // ctx.moveTo(20,20)
+    // ctx.lineTo(20,100)
+    // ctx.lineTo(70,100)
+    // ctx.closePath() // 闭合图像
+
+    // ctx.stroke()
+
+    // ctx.rect(20,20,150,100)
+    // ctx.strokeRect(20,20,150,100)
+    // ctx.fillRect(20,20,150,100)
+
+    // ctx.fillStyle = "red"
+    // ctx.fillRect(0,0,300,150)
+    // ctx.clearRect(20,20,100,50)
+
+
+    // Clip a rectangular area
+    // ctx.rect(50,20,200,120)
+    // ctx.stroke()
+    // ctx.clip()
+    // // Draw red rectangle after clip()
+    // ctx.fillStyle = "red"
+    // ctx.fillRect(0,0,150,100) // 只有裁剪的部分能够看到颜色
+
+    /**
+     * quadraticCurveTo(cpx,cpy,x,y)
+     * cpx,cpy   控制点坐标
+     * x,y 结束点坐标
+    */
+    // ctx.beginPath()
+    // ctx.moveTo(20,20)
+    // ctx.quadraticCurveTo(50,100,200,20)
+    // ctx.stroke()
+
+
+    /**
+     * bezierCurveTo 两个控制点
+     * (20,100) 第一个
+     * (200,100) 第二个
+     *（200,20） 结束点
+    */
+    // ctx.beginPath();
+    // ctx.moveTo(20,20)
+    // ctx.bezierCurveTo(20,100,200,100,200,20)
+    // ctx.stroke()
+
+    /**
+     * (100,75) 圆心坐标
+     * 50 半径
+     * 0 开始的弧度
+     * 2*Math.PI 结束的弧度
+     * true 逆时针 false 顺时针
+    */
+    // ctx.beginPath();
+    // ctx.arc(100,75,50,0,2*Math.PI,true)
+    // ctx.stroke()
+
+    // ctx.beginPath()
+    // ctx.moveTo(20,20)           // Create a starting point
+    // ctx.lineTo(100,20)          // Create a horizontal line
+    // ctx.arcTo(150,20,150,70,50) // Create an arc
+    // ctx.lineTo(150,120)         // Continue with vertical line
+    // ctx.stroke()                // Draw it
+
+    
+    ctx.rect(20,20,150,100)
+    if (ctx.isPointInPath(20,50)) { // 指定的点位于当前路径
+        ctx.stroke()
+    }
+    
+</script>
+</html>
