@@ -141,6 +141,8 @@
     UPDATE table_name SET field1=new-value1, field2=new-value2 [WHERE Clause]
     # 删除数据
     DELETE FROM table_name [WHERE Clause]
+    # like
+    SELECT field1, field2,...fieldN FROM table_name WHERE field1 LIKE condition1 [AND [OR]] filed2 = 'somevalue'
     # 简单描述表结构，字段类型
     desc table_name;
     # 删除数据库

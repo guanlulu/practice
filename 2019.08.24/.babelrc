@@ -1,0 +1,11 @@
+{
+    "presets": [
+      [
+       "@babel/preset-env", {
+         "targets": {
+           "chrome": "67" // 谷歌浏览器自动编译es6语法，因此不用babel转换
+         },
+         "useBuiltIns": "usage" // 按需引入map、Promise等低版本浏览器没有的对象
+      }]
+    ]
+  }
