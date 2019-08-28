@@ -147,6 +147,8 @@
     desc table_name;
     # 删除数据库
     drop database 数据库名;
+    # 显示表列字段
+    SHOW COLUMNS FROM table_name;
 ### 使用 nodejs 连接 mysql
 
 ```
