@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="440" height="440" viewbox="0 0 440 440">
+        <defs>
+                <linearGradient x1="1" y1="0" x2="0" y2="0" id="gradient1">
+                    <stop offset="0%" stop-color="rgb(255,255,0)"></stop>
+                    <stop offset="100%" stop-color="rgb(255,162,0)"></stop>
+                </linearGradient>
+               <linearGradient x1="1" y1="0" x2="0" y2="0" id="gradient2">
+                    <stop offset="0%" stop-color="rgb(255,0,0)"></stop>
+                    <stop offset="100%" stop-color="rgb(255,162,0)"></stop>
+                </linearGradient>
+            </defs>
+            <g transform="matrix(0,-1,1,0,0,440)">
+                <!-- <circle cx="220" cy="220" r="170" stroke-width="50" style="stroke:#f0f1f5" fill="none" stroke-dasharray="1069 1069"></circle> -->
+                <circle cx="220" cy="220" r="170" stroke-width="50" stroke="url('#gradient2')" fill="none" stroke-dasharray="1069 1069"></circle>
+                <circle cx="220" cy="220" r="170" stroke-width="50" stroke="url('#gradient1')" fill="none" stroke-dasharray="534.5 1069"></circle>
+            </g>
+    </svg>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>间断渐变圆环</title>
+    <style>
+        #dash_circle1,#dash_circle2 {
+            display: none;
+        }
+    </style>
+    <style>
+    </style>
+</head>
+<body>
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="440" height="440" viewbox="0 0 440 440">
+        <defs>
+            <linearGradient id="grad1" x1="100%" y1="0%" x2="0%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(255,255,0);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(255, 162, 0);stop-opacity:1" />
+            </linearGradient>
+            <linearGradient id="grad2" x1="100%" y1="0%" x2="0%" y2="0%">
+                <stop offset="0%" style="stop-color:rgb(250, 0, 0);stop-opacity:1" />
+                <stop offset="100%" style="stop-color:rgb(255, 162, 0);stop-opacity:1" />
+            </linearGradient>
+        </defs>
+        <circle id="dash_circle1" cx="220" cy="220" r="170" stroke-width="50" style="stroke: url(#grad2)" fill="none" transform="matrix(0,-1,1,0,0,440)"></circle>
+        <circle id="dash_circle2" cx="220" cy="220" r="170" stroke-width="50" style="stroke: url(#grad1)" fill="none" transform="matrix(0,-1,1,0,0,440)"></circle>
+    </svg>
+    <div>
+        <input type="range" name="range_input" id="range_input" min="0" max="100" step="10" value="0">
+        <span></span>
+    </div>
+</body>
+<script>
+    document.querySelector('input').oninput = function() {
+        if(this.value == 0) {
+            document.querySelector('#dash_circle1').style.display = 'none'
+            document.querySelector('#dash_circle2').style.display = 'none'
+
+        }else
+        if(this.value <= 50) {
+            document.querySelector('#dash_circle1').style.display = 'none'
+            document.querySelector('#dash_circle2').style.display = 'block'
+            var result2 = getDashStr(this.value / 100)
+            document.querySelector('#dash_circle2').setAttribute('stroke-dasharray',result2)
+        }else {
+            document.querySelector('#dash_circle1').style.display = 'block'
+            document.querySelector('#dash_circle2').style.display = 'block'
+            var result1 = getDashStr(this.value / 100)
+            var result2 = getDashStr(0.5)
+            document.querySelector('#dash_circle1').setAttribute('stroke-dasharray',result1)
+            document.querySelector('#dash_circle2').setAttribute('stroke-dasharray',result2)
+        }
+    }
+
+    function getDashStr(part) {
+        // part 取值0-1
+        var c = 2 * Math.PI * 170, // 周长
+        N = 50 // 份数
+        const dashItemLength = (c / (N * 2))
+        const dashItemNum = Math.ceil(N * part)
+        const dashLine = `${dashItemLength} ${dashItemLength},`.repeat(dashItemNum - 1)
+        const restlength = c - (dashItemLength * dashItemNum)
+        const dashLineArray = dashLine.split(',')
+        dashLineArray.push(`${dashItemLength} ${restlength}`)
+        const result = dashLineArray.join(' ')
+        return result
+    }
+</script>
+</html>
