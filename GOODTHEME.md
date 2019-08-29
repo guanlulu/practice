@@ -462,6 +462,13 @@
   https://m.jb51.net/html5/587215.html
   ```
 
+* Access-Control-Allow-Origin 后不能写正则
+
+  ```
+  * 全部放开
+  然后写个中间件判断 origin 
+  ```
+
 
 
 
