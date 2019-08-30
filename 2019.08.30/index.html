@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        html,body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        #out {
+            width: 200px;
+            height: 400px;
+            margin: 100px auto;
+            background: #fcfcfc;
+        }
+        .title {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            background: #ccc;
+        }
+        .content {
+            height: 360px;
+            overflow-y: auto;
+        }
+        .option {
+            max-height: 0;
+            transition: max-height .5s linear;
+            overflow: hidden;
+        }
+        .option>li {
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            background: #fff;
+            list-style: none;
+            cursor: pointer;
+        }
+        .fade {
+            max-height: 1000px;
+        }
+    </style>
+</head>
+<body>
+    <div id="out"> 
+        <div class="title">dsfdsfsdfds</div>
+        <div class="content">
+            <ul class="option">
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+                <li>gsdgdsgsdg</li>
+            </ul>
+        </div>
+        
+    </div>
+</body>
+<script>
+    var title_div = document.querySelector('.title')
+    var option_ul = document.querySelector('.option')
+    var content_div = document.querySelector('.content')
+    var show = false
+
+    title_div.onclick = function() {
+        show = !show
+        if(show) {
+            option_ul.classList.add('fade')
+        }else {
+            option_ul.classList.remove('fade')
+        }
+    }
+
+    content_div.onscroll = function() {
+        // 获取 option_ul content_div 的实际高度
+        var option_h = option_ul.offsetHeight 
+        var content_h = content_div.offsetHeight
+        // 滚动条滚动的最大距离
+        var h = option_h - content_h
+        console.log(h - this.scrollTop)
+        // 距离底部 10px ,push 数据
+        if(h - this.scrollTop <= 10) {
+            console.log('pushing data')
+        }
+    }
+</script>
+</html>
