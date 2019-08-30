@@ -470,6 +470,13 @@
   然后写个中间件判断 origin 
   ```
 
+* 排序算法
+
+  ```
+  https://juejin.im/post/5b06ba5051882538953ac7e5
+  https://louiszhai.github.io/2016/12/23/sort/
+  http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html
+  ```
 
 
 
