@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    
+</body>
+<script>
+    /**
+     * 
+     * 1. caller 只有当函数在执行时才有用
+     *    指的是 谁调用了这个函数
+     *    用法： functionName.caller    // functionName是当前正在执行的函数
+    */
+    function add(a,b) {
+        console.log(add.caller)
+        return a + b
+    }
+    function test() {
+        add(1,2)
+    }
+    test() // test 函数本身
+    add(1,2) // null
+    
+    /**
+     * 
+     * 2. callee 只有在函数执行才有用
+     *    指的是 函数本身
+     *    用来递归匿名函数
+     *    用法： arguments.callee
+    */
+    function add2(a,b) {
+        console.log(arguments.callee) // 函数本身
+        console.log(arguments.callee.length) // 形参个数 2
+        return a + b
+    }
+    add2(1,2,3) 
+
+</script>
+</html>
