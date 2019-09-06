@@ -115,7 +115,7 @@
   为了利用多核CPU的计算能力，HTML5提出Web Worker标准，允许JavaScript脚本创建多个线程，但是子线程完全受主线程控制，且不得操作DOM。所以，这个新标准并没有改变JavaScript单线程的本质
   ```
 
-* 取消某个 commit 点
+* 取消某个远程 commit 点
 
   ```
   https://blog.csdn.net/yxlshk/article/details/79944535
@@ -127,6 +127,12 @@
   git commit - m 'msg'(可能会出现冲突)
   git push
   ```
+  
+* 取消本地 commit 点
+
+```
+ git reset HEAD~  
+```
 
 * localeCompare 其他浏览器支持并不好，如何解决
 
@@ -478,6 +484,30 @@
   http://www.ruanyifeng.com/blog/2011/04/quicksort_in_javascript.html
   ```
 
+* Vue.extend() 全局提示组件
+  
+  ```
+  https://www.jianshu.com/p/b931abe383e3
+  https://www.w3cplus.com/vue/vue-extend.html
+  https://juejin.im/post/5b46a920e51d451925627eba
+  https://segmentfault.com/q/1010000007312426
+  https://segmentfault.com/a/1190000010540748
+  https://stackoverflow.com/questions/40719200/what-is-vue-extend-for
+  https://stackoverflow.com/questions/40719200/what-is-vue-extend-for/40719964
+  https://www.zhihu.com/question/62964881
+  https://github.com/liutao/vue2.0-source/blob/master/Vue.extend.md
+  https://liyaoli.com/2017-07-02/vue-extend-and-component.html
+  http://www.fly63.com/article/detial/3933
+  ```
+* 树形结构
+
+  ```
+  https://zhuanlan.zhihu.com/p/67391570
+  https://github.com/wujunchuan/ax-json-tree
+  https://liubf.com/2019/03/05/js递归遍历树形json结构-根据最后一个节点找到整个家/
+  http://blog.tianlinyong.cn/2019/02/16/js%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C/
+  https://github.com/Lucifier129/Lucifier129.github.io/issues/4
+  ```
 
 
 

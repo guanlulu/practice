@@ -81,6 +81,7 @@
     var option_ul = document.querySelector('.option')
     var content_div = document.querySelector('.content')
     var show = false
+    var already = false
 
     title_div.onclick = function() {
         show = !show
@@ -100,7 +101,11 @@
         console.log(h - this.scrollTop)
         // 距离底部 10px ,push 数据
         if(h - this.scrollTop <= 10) {
+            if(already) return
+            already = true
             console.log('pushing data')
+        }else {
+            already = false
         }
     }
 </script>

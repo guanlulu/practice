@@ -1,3 +1,4 @@
+// 归并排序
 function mergeSort(arr) {
     //console.time('MergeSort');
     //let count = 0;
@@ -36,3 +37,15 @@ function mergeSort(arr) {
         return result.concat(left.slice(il)).concat(right.slice(rl));
     }
 }
+
+// 函数内部 arguments 的属性 callee ，该属性是一个指针，指向拥有这个 arguments 对象的函数
+
+// function factorial(num){    
+//     if (num <=1) {         
+//        return 1;     
+//     } else {         
+//     return num * arguments.callee(num-1);
+//     } 
+//  }
+
+// 上面 arguments.callee 是 factorial 函数

@@ -1,3 +1,4 @@
+// 选择排序
 function selectionSort(arr) {
     //console.time('SelectionSort');
     // 获取数组长度，确保每一项都被排序。
