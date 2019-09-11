@@ -508,6 +508,31 @@
   http://blog.tianlinyong.cn/2019/02/16/js%E6%A0%91%E5%BD%A2%E7%BB%93%E6%9E%84%E6%93%8D%E4%BD%9C/
   https://github.com/Lucifier129/Lucifier129.github.io/issues/4
   ```
+* mac 下设置ssh 
+
+  ```
+  https://www.jianshu.com/p/0b832678e32e
+  ```
+* restful
+
+  ```
+  https://segmentfault.com/a/1190000011516151
+  https://www.jianshu.com/p/21622d81ab26(还没有看)
+  https://developer.github.com/v3/(还没有看)
+  ```
+* GraphQL
+
+  ```
+  https://segmentfault.com/a/1190000017766370（尝试搭建graphql项目）
+  https://www.jianshu.com/p/12dff5905cf6
+  ```
+* 拓扑图
+
+  ```
+  https://segmentfault.com/a/1190000007313560?_ea=1914249
+  https://bl.ocks.org/mbostock/3750558
+  ```
+
 
 
 
