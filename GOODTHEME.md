@@ -567,8 +567,9 @@
 
    https://www.jianshu.com/p/71dcbb6ee847
    https://segmentfault.com/a/1190000000456077
-   
 
+   # 修改最后一条提交的 commit message
+   # git commit --amend
    ```
 
 
