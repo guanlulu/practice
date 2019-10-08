@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>定时器</title>
+</head>
+<body>
+    <button id="btn1">添加定时器</button>
+    <button id="btn2">删除定时器</button>
+    <h3></h3>
+</body>
+<script>
+    var btn1 = document.querySelector('#btn1')
+    var btn2 = document.querySelector('#btn2')
+    var timmer = null,
+        i = 0,
+        j = 0
+
+    btn1.onclick = function() {
+        loadmore()
+    }
+
+    btn2.onclick = function() {
+        document.querySelector('h3').innerText = 'clear timmer'
+        clear()
+    }
+
+    function loadmore() {
+        while(j < 100000) {
+            console.log(timmer)
+            clear()
+            console.log(timmer)
+            timmer = setTimeout(function() {
+                i++
+            },5000)
+            j++
+        }
+        return i
+    }
+
+    function clear() {
+        if(timmer) {
+            clearTimeout(timmer)
+            timmer = null
+        }
+        
+    }
+</script>
+</html>

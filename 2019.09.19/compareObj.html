@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>比较数组或对象</title>
+</head>
+<body>
+    
+</body>
+<script>
+    function isEqual(arg1,arg2) {
+        let flag = true
+        if(typeof arg1 != 'object' || typeof arg2 != 'object') {
+            console.error(`expect array or object,got ${typeof arg1},${typeof arg2}`)
+            return flag = false
+        }else {
+            if(Array.isArray(arg1) !== Array.isArray(arg2)) return flag = false
+            let isArray = Array.isArray(arg1)
+            let keys1 = isArray ? arg1 : Object.keys(arg1),
+                keys2 = isArray ? arg2 : Object.keys(arg2),
+                len1 = keys1.length,
+                len2 = keys2.length
+            if(len1 !== len2) return flag = false
+            for(let i of keys1) {
+                if(isArray) {
+                    if(!keys2.include(i)) return flag = false
+                }else {
+                    if(typeof arg1[i] == 'object') {
+                        isEqual(arg1[i],arg2[i])
+                    }else {
+                        if(arg1[i] != arg2[i]) return flag = false
+                    }
+                }
+            }
+            return flag
+        } 
+    }
+
+    // var flag1 = isEqual(1,2)
+    // var flag2 = isEqual(1,[])
+    // console.log(flag1,flag2)
+
+    // var obj1 = {
+    //     a: 1,
+    //     b: 2
+    // },
+    // obj2 = {
+    //     a: 1,
+    //     c: 3
+    // }
+    // var flag3 = isEqual(obj1,obj2)
+    // console.log(flag3)
+
+    var object1 = {
+        a: 1,
+        b: {
+            b1: 1,
+            b2: {
+                b21: 1
+            }
+        }
+    }
+    var object2 = {
+        a: 1,
+        b: {
+            b1: 1,
+            b2: {
+                b21: 2
+            }
+        }
+    }
+    var flag4 = isEqual(object1,object2)
+    console.log(flag4)
+</script>
+</html>

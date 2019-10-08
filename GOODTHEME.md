@@ -532,9 +532,44 @@
   https://segmentfault.com/a/1190000007313560?_ea=1914249
   https://bl.ocks.org/mbostock/3750558
   ```
+* 数据精度
 
+   ```
+   https://www.jianshu.com/p/77f8130fd278
+   ```
 
+* while 循环（哪些循环可以优化js性能）
+* vue 源码学习
 
+   ```
+   http://hcysun.me/2017/03/03/Vue%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0/
+   ```
+* git rebase
+
+   ```
+   # 变基（本地操作）
+   # git checkout t1
+   # git rebase master
+   # rebase 之后,t1 提交点到 master 上方
+
+   https://git-scm.com/book/zh/v1/Git-%E5%88%86%E6%94%AF-%E5%88%86%E6%94%AF%E7%9A%84%E5%8F%98%E5%9F%BA
+   https://www.cnblogs.com/MrSaver/p/10255589.html
+   http://www.uml.org.cn/pzgl/201704253.asp
+
+   # 交互式变基（本地操作）
+   # git rebase -i
+   # 交互式变基则可以帮助我们在变基过程中，增加自己的操作（修改信息，添加文件等），然后再变基
+   # 实例： 
+   # 1.修改提交记录；
+   # 2.删除提交并且调整提交顺序；
+   # 3.压缩提交：可以将一连串提交压缩成一个单独的提交；
+   # 4.拆分提交：要拆分某一个提交；
+
+   https://www.jianshu.com/p/71dcbb6ee847
+   https://segmentfault.com/a/1190000000456077
+   
+
+   ```
 
 
 * 面试合集
