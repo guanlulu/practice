@@ -571,6 +571,7 @@
    # 修改最后一条提交的 commit message
    # git commit --amend
    
+   https://segmentfault.com/a/1190000014272359
    ```
 
 

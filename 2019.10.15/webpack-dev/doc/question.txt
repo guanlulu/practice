@@ -1,0 +1,4 @@
+1. css 文件要引入，才会打包到指定文件
+2. .css,.less 文件需要不同的 loader
+3. index.html 的图片没有经过 loader 处理,css 里的图片处理了
+4. 图片超过limit 的，直接输出到了 images 下，limit 之内的没有

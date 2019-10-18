@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>two 目录下的 index 页面</h2>
+    <button>获取父页面信息</button>
+</body>
+<script>
+    // https://www.jianshu.com/p/7ec986aa28a7
+    // http-server -p 9002
+    window.addEventListener('message', function(e) {
+        console.log(e)
+        if (e.origin == 'http://10.0.0.102:9001') {
+            if (e.data == 'give u a message') {
+                e.source.postMessage('received', e.origin);  //向原网页返回信息
+            } else {
+                alert(e.data);
+            }
+        }
+    }, false)
+
+
+    var button = document.querySelector('button')
+    button.onclick = function() {
+        console.log('button click')
+        // console.log(window.parent.document) // 获取上一级的window对象，如果还是iframe则是该iframe的window对象
+        // console.log(window.top.document) // 获取最顶级容器的window对象，即，就是你打开页面的文档
+        // console.log(window.self.document) // 返回自身window的引用
+
+
+        // click 里无法监听 message ???
+
+        var str = JSON.stringify({id: 1,name: 'guanlulu'})
+        window.top.postMessage('{"id": 1,"name": "guanlulu"}','http://10.0.0.102:9001')
+    }
+</script>
+</html>

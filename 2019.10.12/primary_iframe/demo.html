@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        html,body {
+            background: #eee;
+        }
+    </style>
+</head>
+<body>
+    <h2>demo 页面</h2>
+    <div id="container">
+
+    </div>
+    <!-- <iframe id="iframe" src="http://10.0.0.102:9000/index.html" frameborder="0"></iframe> -->
+    <!-- <iframe id="google_ads_frame2" name="google_ads_frame2" width="160" height="600" frameborder="0" src="http://10.0.0.102:9000/index.html" marginwidth="0" marginheight="0" vspace="0" hspace="0" allowtransparency="true" scrolling="no" allowfullscreen="true"></iframe> -->
+</body>
+<script>
+    // https://www.cnblogs.com/hq233/p/9849939.html
+    // 动态加载 iframe
+    var container = document.querySelector('#container')
+    var iframe = document.createElement('iframe')
+    iframe.id = "iframe"
+    // 设置不上 ？？？
+    iframe.frameborder = "no"
+    iframe.scrolling = "no" 
+    iframe.src = "http://10.0.0.102:9000/index.html"
+    container.appendChild(iframe)
+    // onload
+    iframe.onload = function() {
+        var iwindow = iframe.contentWindow // 获取iframe的window对象
+        var idoc = iwindow.document
+        var iloc = iwindow.location
+        iframe.height = idoc.body.offsetHeight
+
+        console.log("window",iwindow) //获取iframe的window对象
+        console.log("document",idoc)  //获取iframe的document
+        console.log("location",iloc) // 
+
+        console.log("html",idoc.documentElement)//获取iframe的html
+        console.log("head",idoc.head) //获取head
+        console.log("body",idoc.body) //获取body
+
+        // setTimeout(function(){
+        //     text = idoc.getElementsByTagName('body')[0].textContent;
+        //     console.log(text)
+        //     // 可以实现长轮询
+        //     iloc.reload() //刷新页面,再次获取信息，并且会触发onload函数
+        // },2000)
+    }
+</script>
+</html>

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>one 目录下的 index 页面</h2>
+    <iframe id="iframe" src="http://10.0.0.102:9002" frameborder="0"></iframe>
+</body>
+<script>
+    // https://www.jianshu.com/p/7ec986aa28a7
+    // http-server -p 9001
+    var iframe = document.querySelector('#iframe')
+    iframe.onload = function() {
+        var iwindow = iframe.contentWindow
+        iwindow.postMessage('this is first msg','http://10.0.0.102:9002')
+    }
+
+    window.addEventListener('message',function(e) {
+        console.log(e.data)
+        console.log(JSON.parse(e.data))
+    },false)
+</script>
+</html>

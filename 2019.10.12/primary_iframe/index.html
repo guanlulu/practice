@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <h2>index 页面</h2>
+    <p>同源策略 是由Netscape提出的一个著名的安全策略，现在所有支持JavaScript 的浏览器都会使用这个策略。实际上，这种策略只是一个规范，并不是强制要求，各大厂商的浏览器只是针对同源策略的一种实现。它是浏览器最核心也最基本的安全功能，如果缺少了同源策略，则浏览器的正常功能可能都会受到影响。</p>
+    <button>获取父页面信息</button>
+    <!-- <iframe src="" frameborder="0"></iframe> -->
+</body>
+<script>
+    // 为了防止网站被钓鱼，
+    // 可以使用 window.top 来防止你的网页被 iframe
+    // if(window != window.top){
+    //     window.top.location.href = 'https://baidu.com'
+    // }
+
+    // if (top.location.hostname != window.location.hostname) { 
+    //     top.location.href =window.location.href;
+    // }
+    
+    // 也可以在服务端设置
+    // X-Frame-Options 是一个响应头，主要是描述服务器的网页资源的 iframe 权限
+    // IE8+
+    /**\
+     * 三个选项
+     * DENY：当前页面不能被嵌套iframe里，即便是在相同域名的页面中嵌套也不允许,也不允许网页中有嵌套iframe
+     * SAMEORIGIN：iframe页面的地址只能为同源域名下的页面
+     * ALLOW-FROM：可以在指定的origin url的iframe中加载  兼容性较差Chrome不支持
+    */
+    
+    // Content Security Policy 未来的主流
+
+    var button = document.querySelector('button')
+    button.onclick = function() {
+        console.log(window.parent.document) // 获取上一级的window对象，如果还是iframe则是该iframe的window对象
+        console.log(window.top.document) // 获取最顶级容器的window对象，即，就是你打开页面的文档
+        console.log(window.self.document) // 返回自身window的引用
+    }
+</script>
+</html>
